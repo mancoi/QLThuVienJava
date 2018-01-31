@@ -8,6 +8,7 @@ package QLThuVien;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Control;
 
 /**
  *
@@ -52,6 +53,20 @@ public class Utils {
         return fullName.toString();
     }
 
+    public static void enableContorls(Control ctrl, Control ctrl1, Control ctrl2, Control ctrl3) {
+        ctrl.setDisable(true);
+        ctrl1.setDisable(true);
+        ctrl2.setDisable(true);
+        ctrl3.setDisable(true);
+    }
+    
+    public static void disableContorls(Control ctrl, Control ctrl1, Control ctrl2, Control ctrl3) {
+        ctrl.setDisable(false);
+        ctrl1.setDisable(false);
+        ctrl2.setDisable(false);
+        ctrl3.setDisable(false);
+    }
+    
     public static void confirmExit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Bạn có chắc chắn muốn thoát?");
         alert.showAndWait().ifPresent(response -> {

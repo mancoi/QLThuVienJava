@@ -66,8 +66,8 @@ public class LogInController {
     public void butLogInClicked(ActionEvent actionEvent) {
 
         //Set username and pass for futher using
-        username = txtUsername.getText();
-        pass = passUserPass.getText();
+        username = txtUsername.getText().trim();
+        pass = passUserPass.getText().trim();
 
         //Perform validate information
         if (username.isEmpty() || pass.isEmpty()) { //Check if any fields is empty

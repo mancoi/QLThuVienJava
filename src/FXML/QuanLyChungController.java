@@ -6,14 +6,20 @@
 package FXML;
 
 import QLThuVien.Admin;
+import QLThuVien.Database;
 import QLThuVien.KhachHang;
 import QLThuVien.LogIn;
+import QLThuVien.QueryHelper;
 import QLThuVien.Utils;
+import com.sun.javafx.property.adapter.PropertyDescriptor;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,12 +27,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -36,32 +45,92 @@ import javafx.stage.WindowEvent;
  *
  * @author Doctor
  */
-public class QuanLyChungController implements Initializable{
-    
-    @FXML TabPane tabPaneQuanLy;
-    @FXML Tab tabThongTinDocGia;
-    @FXML MenuButton menuButtonUsername;
-    
+public class QuanLyChungController implements Initializable {
+
+    //Menu
     @FXML
-    protected void logOutAction(ActionEvent event) {
-        try {
-            Utils.reset();
-            showPrimaryStage();
-           ((Node) menuButtonUsername).getScene().getWindow().hide();
-            
-        } catch (Exception ex) {
-            System.err.println("QLChungController: " + ex.getMessage());
-        }
-    }
+    private TabPane tabPaneQuanLy;
     @FXML
-    protected void exitMenuItemAction(ActionEvent event) {
-        Utils.confirmExit(); 
-    }
+    private Tab tabThongTinDocGia;
+    @FXML
+    private MenuButton menuButtonUsername;
+    //SearchBook tab
+    @FXML
+    private TextField txtBookIDToSearch;
+    @FXML
+    private TextField txtBookTitleToSearch;
+    @FXML
+    private ComboBox cmbBoxBookAuthorToSearch;
+    @FXML
+    private ComboBox cmbBoxBookPublisherToSearch;
+    @FXML
+    private ComboBox cmbBoxBookPublishYearToSearch;
+    @FXML
+    private Label lbSearchStatus;
+    //TableView
+    @FXML
+    private TableView tblViewResult;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //tabPaneQuanLy.getTabs().remove(tabThongTinDocGia);
         menuButtonUsername.setText("Xin chào " + Utils.getCurrentUserFullName());
+        Database.populateTable(QueryHelper.selectAllBooks(), tblViewResult);
+       
+        txtBookIDToSearch.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.isEmpty()) {
+                    Utils.enableContorls(txtBookTitleToSearch
+                            , cmbBoxBookAuthorToSearch
+                            , cmbBoxBookPublishYearToSearch
+                            , cmbBoxBookPublisherToSearch);
+                } else {
+                    Utils.disableContorls(txtBookTitleToSearch
+                            , cmbBoxBookAuthorToSearch
+                            , cmbBoxBookPublishYearToSearch
+                            , cmbBoxBookPublisherToSearch);
+                }
+            }
+        });
+    }
+
+    @FXML
+    protected void logOutAction(ActionEvent event) {
+        try {
+            Utils.reset();
+            showPrimaryStage();
+            ((Node) menuButtonUsername).getScene().getWindow().hide();
+
+        } catch (Exception ex) {
+            System.err.println("QLChungController: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    protected void butSearchBookAction(ActionEvent event) {
+        int id = -1;
+        try {
+            id = Integer.parseInt(txtBookIDToSearch.getText().trim());
+        } catch (NumberFormatException ex) {
+            System.err.println("FXML.QuanLyChungController.butSearchBookAction() "
+                    + ex.getMessage());
+        }
+        String bookTitle = txtBookTitleToSearch.getText().trim();
+        //String bookAuthor = cmbBoxBookAuthorToSearch.getText().trim();
+        //String publisher = txtBookPublisherToSearch.getText().trim();
+        //String year = txtBookPublishYearToSearch.getText().trim();
+
+        if (-1 != id) {
+            Database.populateTable(QueryHelper.searchBookById(id), tblViewResult);
+        } else if (true) {
+            
+        }
+    }
+
+    @FXML
+    protected void exitMenuItemAction(ActionEvent event) {
+        Utils.confirmExit();
     }
 
     private void showPrimaryStage() throws IOException {
