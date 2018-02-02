@@ -5,6 +5,8 @@
  */
 package QLThuVien;
 
+import Data.Database;
+
 /**
  *
  * @author Doctor

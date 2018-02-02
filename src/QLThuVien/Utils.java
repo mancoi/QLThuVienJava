@@ -21,6 +21,9 @@ public class Utils {
 
     private static KhachHang currentKh;
     private static Admin currentAd;
+    
+    private static final String DATABASE_CONNECTION_STRING = 
+            "jdbc:sqlserver://localhost;databaseName=QLThuVien;username=sa";
 
     public static void setCurrentUser(String userId, String role) {
         currentUserId = userId;
@@ -137,5 +140,12 @@ public class Utils {
      */
     public static void setCurrentAd(Admin aCurrentAd) {
         currentAd = aCurrentAd;
+    }
+
+    /**
+     * @return the DATABASE_CONNECTION_STRING
+     */
+    public static String getDATABASE_CONNECTION_STRING() {
+        return DATABASE_CONNECTION_STRING;
     }
 }

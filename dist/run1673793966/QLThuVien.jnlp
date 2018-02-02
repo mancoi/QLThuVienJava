@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="QLThuVien.jnlp">
+  <information>
+    <title>QLThuVien</title>
+    <vendor>Doctor</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="QLThuVien.jar" size="28199" download="eager" />
+    <jar href="lib\mssql-jdbc-6.2.2.jre8.jar" size="825389" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="QLThuVien" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="QLThuVien.LogIn"  name="QLThuVien" />
+  <update check="always"/>
+</jnlp>

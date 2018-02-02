@@ -31,14 +31,23 @@ public class QueryHelper {
     }
 
     public static String searchBook(String[] citeria) {
+
+        final String IS_NOT_NULL = "IS NOT NULL";
+        //Check if there is a null citeria or not
+        String[] param = new String[4];
+        param[0] = citeria[0].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[0] + "%'";
+        param[1] = citeria[1].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[1] + "%'";
+        param[2] = citeria[2].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[2] + "%'";
+        param[3] = citeria[3].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[3] + "%'";
+        
         return String.format(
                 "SELECT MaSach, TenSach, TacGia, TenTheLoai, TenNXB, NamXuatBan, SoLuong"
                 + " FROM Sach, Sach_TheLoai, NhaXuatBan"
                 + " WHERE Sach.MaTheLoai = Sach_TheLoai.MaTheLoai"
                 + " AND Sach.MaNXB = NhaXuatBan.MaNXB"
-                + " AND (Sach.TacGia = %s"
-                + "	 OR Sach.MaTheLoai = %s"
-                + "	 OR Sach.MaNXB = %s"
-                + "	 OR Sach.NamXuatBan = %s)", citeria[0], citeria[1], citeria[2], citeria[3]);
+                + " AND Sach.TenSach %s"
+                + " AND Sach.TacGia %s"
+                + " AND Sach_TheLoai.TenTheLoai %s"
+                + " AND Sach.NamXuatBan %s", param[0], param[1], param[2], param[3]);
     }
 }

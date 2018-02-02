@@ -5,19 +5,13 @@
  */
 package FXML;
 
-import QLThuVien.Admin;
-import QLThuVien.Database;
-import QLThuVien.KhachHang;
-import QLThuVien.LogIn;
+import Data.ComboBoxData;
+import Data.Database;
 import QLThuVien.QueryHelper;
 import QLThuVien.Utils;
-import com.sun.javafx.property.adapter.PropertyDescriptor;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -28,14 +22,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -47,49 +33,25 @@ import javafx.stage.WindowEvent;
  */
 public class QuanLyChungController implements Initializable {
 
-    //Menu
-    @FXML
-    private TabPane tabPaneQuanLy;
-    @FXML
-    private Tab tabThongTinDocGia;
-    @FXML
-    private MenuButton menuButtonUsername;
-    //SearchBook tab
-    @FXML
-    private TextField txtBookIDToSearch;
-    @FXML
-    private TextField txtBookTitleToSearch;
-    @FXML
-    private ComboBox cmbBoxBookAuthorToSearch;
-    @FXML
-    private ComboBox cmbBoxBookPublisherToSearch;
-    @FXML
-    private ComboBox cmbBoxBookPublishYearToSearch;
-    @FXML
-    private Label lbSearchStatus;
-    //TableView
-    @FXML
-    private TableView tblViewResult;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //tabPaneQuanLy.getTabs().remove(tabThongTinDocGia);
         menuButtonUsername.setText("Xin chào " + Utils.getCurrentUserFullName());
         Database.populateTable(QueryHelper.selectAllBooks(), tblViewResult);
-       
+
+        //Populate ComboBox
+        cmbBoxBookAuthorToSearch.getItems().addAll(ComboBoxData.populateCmbBoxTacGia());
+        cmbBoxBookGenreToSearch.getItems().addAll(ComboBoxData.populateCmbBoxTheLoai());
+        cmbBoxBookPublishYearToSearch.getItems().addAll(ComboBoxData.populateCmbBoxNamXuatBan());
+
+        //When user find with BookId, they shouldn't add more info
         txtBookIDToSearch.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.isEmpty()) {
-                    Utils.enableContorls(txtBookTitleToSearch
-                            , cmbBoxBookAuthorToSearch
-                            , cmbBoxBookPublishYearToSearch
-                            , cmbBoxBookPublisherToSearch);
+                if (!newValue.trim().isEmpty()) {
+                    Utils.enableContorls(txtBookTitleToSearch, cmbBoxBookAuthorToSearch, cmbBoxBookPublishYearToSearch, cmbBoxBookGenreToSearch);
                 } else {
-                    Utils.disableContorls(txtBookTitleToSearch
-                            , cmbBoxBookAuthorToSearch
-                            , cmbBoxBookPublishYearToSearch
-                            , cmbBoxBookPublisherToSearch);
+                    Utils.disableContorls(txtBookTitleToSearch, cmbBoxBookAuthorToSearch, cmbBoxBookPublishYearToSearch, cmbBoxBookGenreToSearch);
                 }
             }
         });
@@ -109,23 +71,48 @@ public class QuanLyChungController implements Initializable {
 
     @FXML
     protected void butSearchBookAction(ActionEvent event) {
-        int id = -1;
+
+        lbSearchStatus.setText(null);
+        int rows;
         try {
-            id = Integer.parseInt(txtBookIDToSearch.getText().trim());
+
+            //If user not enter a bookId, assign it to -1
+            String bId = txtBookIDToSearch.getText().trim();
+            int id = bId.isEmpty() ? -1 : Integer.parseInt(bId);
+            //Get data from another field
+            String bookTitle = txtBookTitleToSearch.getText().trim();
+            String bookAuthor = cmbBoxBookAuthorToSearch.getEditor().getText().trim();
+            String genre = cmbBoxBookGenreToSearch.getEditor().getText().trim();
+            String year = cmbBoxBookPublishYearToSearch.getEditor().getText().trim();
+
+            if (-1 != id) {
+                rows = Database.populateTable(QueryHelper.searchBookById(id), tblViewResult);
+            } else {
+                String[] citeria = {bookTitle, bookAuthor, genre, year};
+                rows = Database.populateTable(QueryHelper.searchBook(citeria), tblViewResult);
+            }
+            
+            if (0 == rows) {
+                lbSearchStatus.setText("Không có kết quả");
+            }
+
         } catch (NumberFormatException ex) {
+            lbSearchStatus.setText("Mã sách không hợp lệ");
             System.err.println("FXML.QuanLyChungController.butSearchBookAction() "
                     + ex.getMessage());
+        } catch (NullPointerException ex) {
+            System.out.print("QuanLyChungController: " + ex.getMessage());
         }
-        String bookTitle = txtBookTitleToSearch.getText().trim();
-        //String bookAuthor = cmbBoxBookAuthorToSearch.getText().trim();
-        //String publisher = txtBookPublisherToSearch.getText().trim();
-        //String year = txtBookPublishYearToSearch.getText().trim();
+    }
 
-        if (-1 != id) {
-            Database.populateTable(QueryHelper.searchBookById(id), tblViewResult);
-        } else if (true) {
-            
-        }
+    @FXML
+    protected void clearAllSearchField(ActionEvent event) {
+        txtBookIDToSearch.setText("");
+        txtBookTitleToSearch.setText("");
+        cmbBoxBookAuthorToSearch.setValue(null);
+        cmbBoxBookGenreToSearch.setValue(null);
+        cmbBoxBookPublishYearToSearch.setValue(null);
+        lbSearchStatus.setText(null);
     }
 
     @FXML
@@ -151,4 +138,28 @@ public class QuanLyChungController implements Initializable {
 
         primaryStage.show();
     }
+
+    //Menu
+    @FXML
+    private TabPane tabPaneQuanLy;
+    @FXML
+    private Tab tabThongTinDocGia;
+    @FXML
+    private MenuButton menuButtonUsername;
+    //SearchBook tab
+    @FXML
+    private TextField txtBookIDToSearch;
+    @FXML
+    private TextField txtBookTitleToSearch;
+    @FXML
+    private ComboBox cmbBoxBookAuthorToSearch;
+    @FXML
+    private ComboBox cmbBoxBookGenreToSearch;
+    @FXML
+    private ComboBox cmbBoxBookPublishYearToSearch;
+    @FXML
+    private Label lbSearchStatus;
+    //TableView
+    @FXML
+    private TableView tblViewResult;
 }
