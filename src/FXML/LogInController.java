@@ -74,7 +74,9 @@ public class LogInController {
                 lbStatus.setText("Sai tên đăng nhập hoặc mật khẩu!");
             }
         } else { //Log in as guest
-            khachHang = new KhachHang(username, pass);
+            khachHang = new KhachHang();
+            khachHang.setPhoneNumber(username);
+            khachHang.setPassword(pass);
             if (khachHang.isValid()) { //Check info
                 Utils.setCurrentUser(khachHang);
                 showManageForm(actionEvent);

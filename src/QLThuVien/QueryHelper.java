@@ -5,6 +5,8 @@
  */
 package QLThuVien;
 
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author Doctor
@@ -39,7 +41,7 @@ public class QueryHelper {
         param[1] = citeria[1].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[1] + "%'";
         param[2] = citeria[2].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[2] + "%'";
         param[3] = citeria[3].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[3] + "%'";
-        
+
         return String.format(
                 "SELECT MaSach, TenSach, TacGia, TenTheLoai, TenNXB, NamXuatBan, SoLuong"
                 + " FROM Sach, Sach_TheLoai, NhaXuatBan"
@@ -49,5 +51,11 @@ public class QueryHelper {
                 + " AND Sach.TacGia %s"
                 + " AND Sach_TheLoai.TenTheLoai %s"
                 + " AND Sach.NamXuatBan %s", param[0], param[1], param[2], param[3]);
+    }
+
+    public static String addUser(String[] params, String tblToInsert) {
+        return String.format(
+                "INSERT INTO %s"
+                + " VALUES ('%s', '%s', N'%s', N'%s')", tblToInsert, params[0], params[1], params[2], params[3]);
     }
 }

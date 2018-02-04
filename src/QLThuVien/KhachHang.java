@@ -6,6 +6,7 @@
 package QLThuVien;
 
 import Data.Database;
+import javafx.scene.control.Label;
 
 /**
  *
@@ -18,6 +19,8 @@ public class KhachHang {
     private String lastName;
     private String firstName;
 
+    public KhachHang() {}
+    
     public KhachHang(String phoneNum, String pass) {
         phoneNumber = phoneNum;
         password = pass;
@@ -38,6 +41,39 @@ public class KhachHang {
 
     }
 
+    public void addGuest(Label lbstatus){
+        
+        //Check the username first to make sure it not exists
+        if (!usernameIsOK()) {
+            return;
+        }
+        
+        String[] params = {phoneNumber, password, lastName, firstName};
+        int rows = Database.insertData(QueryHelper.addUser(params, "KhachHang"));
+        
+        if (rows > 0) {
+            lbstatus.setText("Thêm thành công");
+        }
+        else {
+            lbstatus.setText("Thêm thất bại");
+        }
+    }
+    
+    private boolean usernameIsOK() {
+        
+        if (null == phoneNumber) {
+            return false;
+        }
+        
+        String query = "SELECT * FROM KhachHang WHERE phoneNumber='" + phoneNumber + "'";
+        if (Database.isConflictId(query)) {
+            Utils.showAlert("Trùng số điện thoại, người dùng đã tồn tại");
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     /**
      * @return the phoneNumber
      */
@@ -49,7 +85,13 @@ public class KhachHang {
      * @param phoneNumber the phoneNumber to set
      */
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        try {
+            int phoneNum = Integer.parseInt(phoneNumber);
+            this.phoneNumber = String.valueOf(phoneNum);
+        } catch (NumberFormatException ex) {
+            Utils.showAlert("Mã khách hàng phải là một chuỗi số!\n" + ex.getMessage());
+        }
+        
     }
 
     /**

@@ -6,11 +6,14 @@
 package Data;
 
 import QLThuVien.Utils;
+import com.microsoft.sqlserver.jdbc.SQLServerCallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -62,7 +65,7 @@ public class Database {
             //If there's no result, don't do this
             if (resultSet.next()) {
                 rs = new String[4];
-                rs[0] = resultSet.getString(1);
+                rs[0] = String.valueOf(resultSet.getObject(1));
                 rs[1] = resultSet.getString(2);
                 rs[2] = resultSet.getString(3);
                 rs[3] = resultSet.getString(4);
@@ -74,6 +77,34 @@ public class Database {
         }
 
         return rs;
+    }
+    
+    public static int insertData(String query) {
+        int rows = 0;
+        try {
+            
+            Statement statement = con.createStatement();
+            rows = statement.executeUpdate(query);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rows;
+    }
+    
+    public static boolean isConflictId(String query) {
+        boolean isConflict = false;
+        try {
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            isConflict = resultSet.next();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isConflict;
     }
 
     public static int populateTable(String query, TableView tblViewResult) {
