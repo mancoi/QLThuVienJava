@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
+import javafx.scene.control.TableView;
 
 /**
  *
@@ -21,6 +22,8 @@ public class Utils {
 
     private static KhachHang currentKh;
     private static Admin currentAd;
+    
+    private static TableView tblViewResult;
     
     private static final String DATABASE_CONNECTION_STRING = 
             "jdbc:sqlserver://localhost;databaseName=QLThuVien;username=sa";
@@ -152,5 +155,19 @@ public class Utils {
      */
     public static String getDATABASE_CONNECTION_STRING() {
         return DATABASE_CONNECTION_STRING;
+    }
+
+    /**
+     * @return the tblViewResult
+     */
+    public static TableView getTblViewResult() {
+        return tblViewResult;
+    }
+
+    /**
+     * @param aTblViewResult the tblViewResult to set
+     */
+    public static void setTblViewResult(TableView aTblViewResult) {
+        tblViewResult = aTblViewResult;
     }
 }

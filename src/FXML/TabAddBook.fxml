@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="CENTER" hgap="8.0" vgap="8.0" 
+          prefHeight="250" prefWidth="800" 
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TabAddBookController">
+    <stylesheets>
+        <URL value="@/css/styleSheet.css"/>
+    </stylesheets>
+    <children>
+        <Label styleClass="labelHeader" 
+               text="Thông tin sách" 
+               GridPane.columnIndex="0" 
+               GridPane.columnSpan="2" 
+               GridPane.rowIndex="0" />
+                                                
+        <Label text="Tựa sách:" 
+               GridPane.columnIndex="0" 
+               GridPane.rowIndex="1" />
+                                                
+        <Label text="Tác giả:"
+               GridPane.columnIndex="0" 
+               GridPane.rowIndex="2" />
+                                                
+        <Label text="Thể loại:" 
+               GridPane.columnIndex="0" 
+               GridPane.rowIndex="3" />   
+                                                
+        <Label text="Nhà xuất bản:" 
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="4" />
+                                                
+        <Label text="Năm xuất bản:" 
+               GridPane.columnIndex="0" 
+               GridPane.rowIndex="5" />
+                                    
+        <TextField fx:id="txtBookTitle"
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="1" />
+                                                
+        <TextField fx:id="txtAuthor" 
+                   GridPane.columnIndex="1" 
+                   GridPane.rowIndex="2" />
+                                                
+        <TextField fx:id="txtGenre" 
+                   GridPane.columnIndex="1" 
+                   GridPane.rowIndex="3" />
+                                                
+        <TextField fx:id="txtPublisher" 
+                   GridPane.columnIndex="1" 
+                   GridPane.rowIndex="4" />
+                                                
+        <TextField fx:id="txtYearPublished" 
+                   GridPane.columnIndex="1" 
+                   GridPane.rowIndex="5" />
+                                   
+        <Separator orientation="VERTICAL" 
+                   GridPane.columnIndex="2" 
+                   GridPane.rowSpan="6" />
+                                    
+        <Label styleClass="labelHeader" 
+               text="Thêm sách"
+               GridPane.columnIndex="3"
+               GridPane.rowIndex="0" 
+               GridPane.columnSpan="2" />
+                                                
+        <Label fx:id="lbAddBookStatus"
+               text="Hãy cập nhập số lượng sách hiện có sau khi thêm sách"
+               GridPane.columnIndex="3"
+               GridPane.rowIndex="1" 
+               GridPane.columnSpan="2" />
+                                                
+        <Button fx:id="butAddBook"
+                text="Thêm sách"
+                GridPane.columnIndex="3"
+                GridPane.rowIndex="2" 
+                GridPane.columnSpan="2" 
+                GridPane.halignment="CENTER" />
+                                    
+        <HBox alignment="CENTER_LEFT"
+              spacing="4"  
+              GridPane.columnIndex="3"
+              GridPane.rowIndex="3" 
+              GridPane.columnSpan="2" >
+            <children>
+                <Label styleClass="labelHeader" 
+                       text="Sửa sách" />
+                <Label fx:id="lbUpdateBookId" text="This is a long book title that should be wrap in one line with eclipes at the end" 
+                       maxWidth="250"  />
+            </children>
+        </HBox>
+                                                
+        <HBox alignment="CENTER_LEFT"
+              spacing="4"  
+              GridPane.columnIndex="3"
+              GridPane.rowIndex="4" 
+              GridPane.columnSpan="2" >
+            <children>
+                <Label text="Số lượng:" />
+                <TextField fx:id="txtBookQuantity" />
+            </children>
+        </HBox>
+                                                
+        <Button fx:id="butUpdateBook"
+                text="Cập nhật thông tin" 
+                GridPane.columnIndex="3"
+                GridPane.rowIndex="5" 
+                GridPane.columnSpan="2"
+                GridPane.halignment="CENTER" /> 
+                                           
+    </children>
+</GridPane>

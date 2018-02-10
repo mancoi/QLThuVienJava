@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="CENTER" hgap="8" vgap="8"
+          prefHeight="250" prefWidth="800"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TabReturnBookController">
+    <stylesheets>
+        <URL value="@/css/styleSheet.css"/>
+    </stylesheets>
+    <children>
+                                                
+        <Label styleClass="labelHeader" 
+               text="Thông tin người trả"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="0" 
+               GridPane.columnSpan="2" 
+        />
+                                                
+        <Label text="Số điện thoại:"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="1" 
+        />
+                                                
+        <TextField fx:id="txtPersonReturnId" 
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="1"
+        />
+                                                
+        <Button fx:id="butConfirmReturn"
+                text="Xác nhận trả sách" 
+                GridPane.columnIndex="0"
+                GridPane.rowIndex="3" 
+                GridPane.columnSpan="2" 
+                GridPane.halignment="RIGHT" 
+        /> 
+                                                
+    </children>
+</GridPane>

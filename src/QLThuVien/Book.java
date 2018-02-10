@@ -20,13 +20,13 @@ public class Book {
     private String publisher;
     private String yearPublish;
     
-    public int searchBook(TableView tblViewResult) {
+    public int searchBook() {
         int rows = 0;
         if (-1 != getBookId()) {
-                rows = Database.populateTable(QueryHelper.searchBookById(getBookId()), tblViewResult);
+                rows = Database.populateTable(QueryHelper.searchBookById(getBookId()));
             } else {
                 String[] citeria = {getTitle(), getAuthor(), getGenre(), getYearPublish()};
-                rows = Database.populateTable(QueryHelper.searchBook(citeria), tblViewResult);
+                rows = Database.populateTable(QueryHelper.searchBook(citeria));
             }
         
         return rows;

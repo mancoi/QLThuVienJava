@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<GridPane alignment="CENTER" hgap="8.0" vgap="8.0"
+          prefHeight="250" prefWidth="800"  
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="Controller.TabAddUserController">
+    <stylesheets>
+        <URL value="@/css/styleSheet.css"/>
+    </stylesheets>
+    <children>
+        <Label styleClass="labelHeader" text="Thông tin đăng nhập" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+        <Label text="Tên đăng nhập:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label text="Mật khẩu:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    
+        <TextField fx:id="txtUsername"
+                   GridPane.columnIndex="1" 
+                   GridPane.rowIndex="1" 
+        />
+        <PasswordField fx:id="pswPassword"
+                       GridPane.columnIndex="1" 
+                       GridPane.rowIndex="2" 
+        />
+                                   
+        <Separator orientation="VERTICAL" 
+                   GridPane.columnIndex="2" 
+                   GridPane.rowSpan="3" 
+        />
+                                    
+        <Label styleClass="labelHeader"
+               text="Thông tin cá nhân" 
+               GridPane.columnIndex="3"
+               GridPane.rowIndex="0" 
+               GridPane.columnSpan="2"  
+        />
+                                                
+        <Label text="Họ:" 
+               GridPane.columnIndex="3"
+               GridPane.rowIndex="1" 
+        />
+        <Label text="Tên:" 
+               GridPane.columnIndex="3"
+               GridPane.rowIndex="2" 
+        />
+                                    
+        <TextField fx:id="txtLastname"
+                   GridPane.columnIndex="4"
+                   GridPane.rowIndex="1" 
+        />
+        <TextField fx:id="txtFirstName" 
+                   GridPane.columnIndex="4" 
+                   GridPane.rowIndex="2" 
+        />
+                                    
+        <Separator orientation="HORIZONTAL"
+                   GridPane.columnIndex="0" 
+                   GridPane.rowIndex="3"
+                   GridPane.columnSpan="5"
+        />
+                                            
+        <HBox alignment="CENTER_LEFT" 
+              spacing="8"
+              GridPane.columnIndex="0" 
+              GridPane.rowIndex="4" 
+              GridPane.columnSpan="3" >
+            <children>
+                <Label text="Thêm với tư cách: " 
+                       styleClass="labelHeader" />
+                <RadioButton fx:id="radAddAsAdmin" 
+                             text="Admin">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="addAs" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="radAddAsGuest" 
+                             selected="true" 
+                             text="Khách" 
+                             toggleGroup="$addAs"
+                />
+            </children>
+        </HBox>
+                                                
+        <Button fx:id="butThemThanhVien" text="Thêm" minWidth="100"
+                GridPane.columnIndex="4" GridPane.rowIndex="4"
+                GridPane.halignment="RIGHT" 
+                onAction="#butAddUserAction" 
+        />
+                                                
+        <Label fx:id="lbStatusThemThanhVien" text="Chưa nhập số điện thoại!"
+               GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="5"
+               GridPane.halignment="RIGHT" />
+                                                
+    </children>
+                                
+</GridPane>

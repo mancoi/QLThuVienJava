@@ -107,8 +107,9 @@ public class Database {
         return isConflict;
     }
 
-    public static int populateTable(String query, TableView tblViewResult) {
+    public static int populateTable(String query) {
 
+        TableView tblViewResult = Utils.getTblViewResult();
         ObservableList<ObservableList> data = FXCollections.observableArrayList();
 
         //Reset the TableView first
