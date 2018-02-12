@@ -97,7 +97,7 @@ public class LogInController {
             libManagerStage.setTitle("Quản lý thư viện");
             libManagerStage.getIcons().add(new Image("/Image/ic_library.png"));
             libManagerStage.setScene(new Scene(root));
-            libManagerStage.setMinWidth(800);
+            libManagerStage.setMinWidth(815);
             libManagerStage.setMinHeight(600);
             libManagerStage.setOnCloseRequest((WindowEvent event) -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Bạn có chắc chắn muốn thoát?");

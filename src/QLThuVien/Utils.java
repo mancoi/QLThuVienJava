@@ -59,14 +59,14 @@ public class Utils {
         return fullName.toString();
     }
 
-    public static void enableControls(Control ctrl, Control ctrl1, Control ctrl2, Control ctrl3) {
+    public static void disableControls(Control ctrl, Control ctrl1, Control ctrl2, Control ctrl3) {
         ctrl.setDisable(true);
         ctrl1.setDisable(true);
         ctrl2.setDisable(true);
         ctrl3.setDisable(true);
     }
     
-    public static void disableControls(Control ctrl, Control ctrl1, Control ctrl2, Control ctrl3) {
+    public static void enableControls(Control ctrl, Control ctrl1, Control ctrl2, Control ctrl3) {
         ctrl.setDisable(false);
         ctrl1.setDisable(false);
         ctrl2.setDisable(false);

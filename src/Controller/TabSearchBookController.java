@@ -55,9 +55,9 @@ public class TabSearchBookController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (!newValue.trim().isEmpty()) {
-                    Utils.enableControls(txtBookTitleToSearch, cmbBoxBookAuthorToSearch, cmbBoxBookPublishYearToSearch, cmbBoxBookGenreToSearch);
-                } else {
                     Utils.disableControls(txtBookTitleToSearch, cmbBoxBookAuthorToSearch, cmbBoxBookPublishYearToSearch, cmbBoxBookGenreToSearch);
+                } else {
+                    Utils.enableControls(txtBookTitleToSearch, cmbBoxBookAuthorToSearch, cmbBoxBookPublishYearToSearch, cmbBoxBookGenreToSearch);
                 }
             }
         });

@@ -106,6 +106,23 @@ public class Database {
         }
         return isConflict;
     }
+    
+    public static boolean isReturnedAllBook (String query) {
+        boolean isNotReturnedAll = false;
+        try {
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            //If the user is not return all books, this statement will return true
+            isNotReturnedAll = resultSet.next();
+            
+        } catch (SQLException ex) {
+            System.err.printf("Database.isReturnedAllBook bị lỗi\n%s", ex.getMessage());
+        }
+        
+        return !isNotReturnedAll;
+        
+    }
 
     public static int populateTable(String query) {
 

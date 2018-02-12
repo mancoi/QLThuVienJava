@@ -44,7 +44,8 @@ public class KhachHang {
     public void addGuest(Label lbstatus){
         
         //Check the username first to make sure it not exists
-        if (!usernameIsOK()) {
+        if (usernameIsExists()) {
+            Utils.showAlert("Trùng số điện thoại, người dùng đã tồn tại");
             return;
         }
         
@@ -59,19 +60,15 @@ public class KhachHang {
         }
     }
     
-    private boolean usernameIsOK() {
+    //Check if the user exist or not
+    public boolean usernameIsExists() {
         
         if (null == phoneNumber) {
             return false;
         }
         
         String query = "SELECT * FROM KhachHang WHERE phoneNumber='" + phoneNumber + "'";
-        if (Database.isConflictId(query)) {
-            Utils.showAlert("Trùng số điện thoại, người dùng đã tồn tại");
-            return false;
-        } else {
-            return true;
-        }
+        return Database.isConflictId(query);
     }
     
     /**

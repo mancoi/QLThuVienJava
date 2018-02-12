@@ -58,4 +58,11 @@ public class QueryHelper {
                 "INSERT INTO %s"
                 + " VALUES ('%s', '%s', N'%s', N'%s')", tblToInsert, params[0], params[1], params[2], params[3]);
     }
+    
+    public static String checkBorrower(String phoneNum) {
+        return String.format(
+                "SELECT * FROM KhachHang_MuonSach"
+                + " WHERE phoneNumber = '%s'"
+                + " AND	 DaTra = 'false'", phoneNum);
+    }
 }

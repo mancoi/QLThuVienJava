@@ -9,7 +9,7 @@
 
 
 <GridPane  
-    alignment="CENTER" hgap="8" vgap="8" 
+    alignment="CENTER" hgap="8" vgap="8"
     prefHeight="250" prefWidth="800"  
     xmlns:fx="http://javafx.com/fxml/1" 
     fx:controller="Controller.TabLendBookController">
@@ -18,37 +18,43 @@
     </stylesheets>
     <children>
         <Label styleClass="labelHeader" 
-                       text="1. Kiểm tra thông tin người mượn"
-                       GridPane.columnIndex="0"
-                       GridPane.rowIndex="0" 
-                       GridPane.columnSpan="2" />
+               text="1. Kiểm tra thông tin người mượn"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="0" 
+               GridPane.columnSpan="2" />
                                                 
         <Label text="Số điện thoại:" 
-                       GridPane.columnIndex="0"
-                       GridPane.rowIndex="1"/> 
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="1"/> 
                                                 
         <TextField fx:id="txtBorrowerId"
-                           GridPane.columnIndex="1"
-                           GridPane.rowIndex="1" />
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="1" />
                                                 
         <Button fx:id="butCheckBorrower"
-                        onAction="#butCheckBorrowerAction" 
-                        text="Kiểm tra" 
-                        GridPane.columnIndex="0"
-                        GridPane.rowIndex="2"
-                        GridPane.columnSpan="2"
-                        GridPane.halignment="RIGHT"                                    
+                onAction="#butCheckBorrowerAction" 
+                text="Kiểm tra" 
+                GridPane.columnIndex="0"
+                GridPane.rowIndex="2"
+                GridPane.columnSpan="2"
+                GridPane.halignment="RIGHT"                                    
+        />
+        
+        <Label fx:id="lbCheckBrwStatus"
+               GridPane.columnIndex="1"
+               GridPane.rowIndex="3"
+               GridPane.halignment="RIGHT" 
         /> 
                                                 
         <Separator orientation="VERTICAL" 
-                           GridPane.columnIndex="2" 
-                           GridPane.rowSpan="6" />
+                   GridPane.columnIndex="2" 
+                   GridPane.rowSpan="6" />
                                                 
         <Label styleClass="labelHeader" 
-                       text="2. Thêm sách cần mượn"
-                       GridPane.columnIndex="3"
-                       GridPane.rowIndex="0" 
-                       GridPane.columnSpan="3"
+               text="2. Thêm sách cần mượn"
+               GridPane.columnIndex="3"
+               GridPane.rowIndex="0" 
+               GridPane.columnSpan="3"
         />
                                                 
         <ListView 
@@ -63,40 +69,43 @@
             GridPane.halignment="CENTER" /> 
                                                 
         <HBox alignment="CENTER"
-                      spacing="4"  
-                      GridPane.columnIndex="3"
-                      GridPane.rowIndex="5" 
-                      GridPane.columnSpan="3" >
+              spacing="4"  
+              GridPane.columnIndex="3"
+              GridPane.rowIndex="5" 
+              GridPane.columnSpan="3" >
             <children>
                 <Button fx:id="butAddBorrowBook"
-                                onAction="#butAddBorrowBookAction" 
-                                text="Thêm"
+                        onAction="#butAddBorrowBookAction" 
+                        disable="true" 
+                        text="Thêm"
                 /> 
                 <Button fx:id="butDelBorrowBook"
-                                onAction="#butDelBorrowBook" 
-                                text="Xóa"
+                        onAction="#butDelBorrowBook" 
+                        disable="true" 
+                        text="Xóa"
                 /> 
                 <Button fx:id="butConfirmBorrowBook"
-                                onAction="#butConfirmBorrowBook" 
-                                text="Xác nhận"
+                        onAction="#butConfirmBorrowBook" 
+                        disable="true" 
+                        text="Xác nhận"
                 /> 
             </children>
         </HBox>
                                                 
         <Separator orientation="VERTICAL" 
-                           GridPane.columnIndex="6" 
-                           GridPane.rowSpan="6" />
+                   GridPane.columnIndex="6" 
+                   GridPane.rowSpan="6" />
                                                 
         <Label styleClass="labelHeader" 
-                       text="3. Xác nhận"
-                       GridPane.columnIndex="7"
-                       GridPane.rowIndex="0" 
-                       GridPane.columnSpan="2"
+               text="3. Xác nhận"
+               GridPane.columnIndex="7"
+               GridPane.rowIndex="0" 
+               GridPane.columnSpan="2"
         />
                                                 
         <Label text="Người mượn: " 
-                       GridPane.columnIndex="7"
-                       GridPane.rowIndex="1" 
+               GridPane.columnIndex="7"
+               GridPane.rowIndex="1" 
         />
                                                 
         <Label
@@ -107,8 +116,8 @@
         />
                                                 
         <Label text="Số sách mượn: " 
-                       GridPane.columnIndex="7"
-                       GridPane.rowIndex="2" 
+               GridPane.columnIndex="7"
+               GridPane.rowIndex="2" 
         />
                                                 
         <Label 
@@ -119,11 +128,11 @@
         />
                                                 
         <HBox fx:id="hBoxReturnDay"
-                      GridPane.columnIndex="7"
-                      GridPane.rowIndex="3"
-                      GridPane.columnSpan="2"
-                      spacing="4"
-                      alignment="CENTER" 
+              GridPane.columnIndex="7"
+              GridPane.rowIndex="3"
+              GridPane.columnSpan="2"
+              spacing="4"
+              alignment="CENTER" 
         >
             <children>
                                                         
@@ -131,27 +140,27 @@
                 />
                                                 
                 <Label fx:id="lbReturnDay"
-                               text="20/02/2018"  
+                       text="20/02/2018"  
                 />
             </children>
         </HBox>
                                                 
         <Label fx:id="lbLendBookStatus"
-                       text="Cho mượn hoàn tất" 
-                       GridPane.halignment="CENTER" 
-                       GridPane.columnIndex="7"
-                       GridPane.rowIndex="4"
-                       GridPane.columnSpan="2"
+               text="Cho mượn hoàn tất" 
+               GridPane.halignment="CENTER" 
+               GridPane.columnIndex="7"
+               GridPane.rowIndex="4"
+               GridPane.columnSpan="2"
         />
                                                 
         <Button fx:id="butLendBook"
-                        onAction="#butLendBookAction" 
-                        text="Xác nhận &amp; Cho mượn"
-                        disable="true" 
-                        GridPane.columnIndex="7"
-                        GridPane.rowIndex="5"
-                        GridPane.columnSpan="2"
-                        GridPane.halignment="CENTER" 
+                onAction="#butLendBookAction" 
+                text="Xác nhận &amp; Cho mượn"
+                disable="true" 
+                GridPane.columnIndex="7"
+                GridPane.rowIndex="5"
+                GridPane.columnSpan="2"
+                GridPane.halignment="CENTER" 
         />     
                                                 
     </children>
