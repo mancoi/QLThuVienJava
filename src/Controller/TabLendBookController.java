@@ -6,17 +6,21 @@
 package Controller;
 
 import Data.Database;
+import QLThuVien.Book;
 import QLThuVien.KhachHang;
 import QLThuVien.QueryHelper;
 import QLThuVien.Utils;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 /**
@@ -49,7 +53,10 @@ public class TabLendBookController implements Initializable {
     private Button butDelBorrowBook;
     @FXML
     private Button butConfirmBorrowBook;
-
+    
+    // Control the book Id(s) user has selected
+    private ArrayList<Integer> bkBorrowIds;
+    
     private KhachHang kh;
 
     /**
@@ -58,6 +65,7 @@ public class TabLendBookController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         kh = new KhachHang();
+        bkBorrowIds = new ArrayList<>();
     }
 
     @FXML
@@ -84,7 +92,24 @@ public class TabLendBookController implements Initializable {
 
     @FXML
     protected void butAddBorrowBookAction(ActionEvent event) {
-
+        // The ObservableList will contain the content follow this format:
+        // [[id, title, author, genre, publisher, year, quantity]]
+        ObservableList row = Utils.getTblViewResult().getSelectionModel().getSelectedItems();
+        // Add each field to String arry fileds
+        String[] fields = row.toString().replaceAll("\\[|\\]", "").replaceAll(", ", ",").split(",");
+        
+        System.out.println(row);
+        // Create a Book object
+        Book bk = new Book();
+        bk.setBookId(Integer.parseInt(fields[0]));
+        bk.setTitle(fields[1]);
+        
+        // Make sure user can't borrow a book many time
+        if (!bkBorrowIds.contains(bk.getBookId())) {
+             bkBorrowIds.add(bk.getBookId());
+             lstVBorrowBookList.getItems().add(bk);
+        }
+        else Utils.showAlert("Không thể mượn một quyển nhiều lần trong một lần mượn!");
     }
 
     @FXML

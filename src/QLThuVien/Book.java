@@ -32,6 +32,13 @@ public class Book {
         return rows;
     }
 
+    @Override
+    public String toString() {
+        return bookId + " - " + title;
+    }
+    
+    
+
     /**
      * @return the bookId
      */
