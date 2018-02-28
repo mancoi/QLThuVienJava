@@ -17,7 +17,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
@@ -53,6 +55,8 @@ public class TabLendBookController implements Initializable {
     private Button butDelBorrowBook;
     @FXML
     private Button butConfirmBorrowBook;
+    @FXML
+    private Button butLendBook;
     
     // Control the book Id(s) user has selected
     private ArrayList<Integer> bkBorrowIds;
@@ -70,6 +74,7 @@ public class TabLendBookController implements Initializable {
 
     @FXML
     protected void butCheckBorrowerAction(ActionEvent event) {
+        
         kh.setPhoneNumber(txtBorrowerId.getText().trim());
         String query = QueryHelper.checkBorrower(kh.getPhoneNumber());
 
@@ -87,6 +92,7 @@ public class TabLendBookController implements Initializable {
                     , butDelBorrowBook
                     , butConfirmBorrowBook);
             butCheckBorrower.setDisable(true);
+            kh.setNames();
         }
     }
 
@@ -146,7 +152,31 @@ public class TabLendBookController implements Initializable {
 
     @FXML
     protected void butConfirmBorrowBook(ActionEvent event) {
-
+        
+        // Build the message contain info about the borrower and the books
+        // that user are going to borrow
+        StringBuilder confirmMes = new StringBuilder();
+        confirmMes.append(String.format("Mã người mượn: %s", kh.getPhoneNumber()));
+        confirmMes.append(String.format("\nTên người mượn: %s", kh.getFullName()));
+        confirmMes.append("\n----------------------");
+        
+        for (int i = 0; i < lstVBorrowBookList.getItems().size(); i++) {
+            confirmMes.append("\n");
+            confirmMes.append(lstVBorrowBookList.getItems().get(i).toString());
+        }
+        // Show that message, if OK, disable all control in this step
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, confirmMes.toString());
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Utils.disableControls(
+                    lstVBorrowBookList
+                  , butAddBorrowBook
+                  , butDelBorrowBook
+                  , butConfirmBorrowBook);
+                butLendBook.setDisable(false);
+            }
+        });
+        
     }
 
     @FXML
