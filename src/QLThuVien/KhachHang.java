@@ -19,8 +19,9 @@ public class KhachHang {
     private String lastName;
     private String firstName;
 
-    public KhachHang() {}
-    
+    public KhachHang() {
+    }
+
     public KhachHang(String phoneNum, String pass) {
         phoneNumber = phoneNum;
         password = pass;
@@ -41,36 +42,61 @@ public class KhachHang {
 
     }
 
-    public void addGuest(Label lbstatus){
-        
+    /**
+     * Get the last name and the first name of any KhachHang that called this
+     * method then set it to current KhachHang, before use this method, please
+     * make sure the current KhachHang is a valid user.
+     */
+    public void setNames() {
+        String query
+                = "SELECT Ho, Ten FROM KhachHang Where phoneNumber = " + phoneNumber;
+        String[] names = Database.getKHName(query);
+
+        if (names != null) {
+            lastName = names[0];
+            firstName = names[1];
+        } else {
+            Utils.showAlert("Mã người dùng không tồn tại.");
+        }
+
+    }
+
+    public void addGuest(Label lbstatus) {
+
         //Check the username first to make sure it not exists
         if (usernameIsExists()) {
             Utils.showAlert("Trùng số điện thoại, người dùng đã tồn tại");
             return;
         }
-        
+
         String[] params = {phoneNumber, password, lastName, firstName};
         int rows = Database.insertData(QueryHelper.addUser(params, "KhachHang"));
-        
+
         if (rows > 0) {
             lbstatus.setText("Thêm thành công");
-        }
-        else {
+        } else {
             lbstatus.setText("Thêm thất bại");
         }
     }
-    
+
     //Check if the user exist or not
     public boolean usernameIsExists() {
-        
+
         if (null == phoneNumber) {
             return false;
         }
-        
+
         String query = "SELECT * FROM KhachHang WHERE phoneNumber='" + phoneNumber + "'";
         return Database.isConflictId(query);
     }
-    
+
+    /**
+     * @return FullName
+     */
+    public String getFullName() {
+        return lastName + " " + firstName;
+    }
+
     /**
      * @return the phoneNumber
      */
@@ -88,7 +114,7 @@ public class KhachHang {
         } catch (NumberFormatException ex) {
             Utils.showAlert("Mã khách hàng phải là một chuỗi số!\n" + ex.getMessage());
         }
-        
+
     }
 
     /**

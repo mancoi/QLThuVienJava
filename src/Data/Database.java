@@ -52,6 +52,32 @@ public class Database {
         }
         return "Kết nối CSDL thành công";
     }
+    
+    /**
+     * This method return an array contain KhachHang LastName and FirstName,
+     * if there are nothing, return an null array.
+     * @param query
+     * @return
+     */
+    public static String[] getKHName(String query) {
+        String[] rs = null;
+        try {
+            Database.tryToConnect();
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            //If there's no result, don't do this
+            if (resultSet.next()) {
+                rs = new String[2];
+                rs[0] = resultSet.getString(1);
+                rs[1] = resultSet.getString(2);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("DatabaseClass: " + ex.getMessage());
+            return rs;
+        }
+        return rs;
+    }
 
     public static String[] queryLogInStatement(String selectFrom, String whereToSelect) {
 
