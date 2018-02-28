@@ -98,6 +98,11 @@ public class TabLendBookController implements Initializable {
         // Add each field to String arry fileds
         String[] fields = row.toString().replaceAll("\\[|\\]", "").replaceAll(", ", ",").split(",");
         
+        if (fields[0].isEmpty()) {
+            Utils.showAlert("Hãy chọn một quyển sách trong bảng ở dưới để mượn.");
+            return;
+        }
+        
         System.out.println(row);
         // Create a Book object
         Book bk = new Book();
@@ -110,11 +115,33 @@ public class TabLendBookController implements Initializable {
              lstVBorrowBookList.getItems().add(bk);
         }
         else Utils.showAlert("Không thể mượn một quyển nhiều lần trong một lần mượn!");
+        
     }
 
     @FXML
     protected void butDelBorrowBook(ActionEvent event) {
 
+        // Because the return string follow this format:
+        // [id - title]
+        // So we remove the "[", "]" and " - "
+        String[] bk = lstVBorrowBookList
+                        .getSelectionModel()
+                        .getSelectedItems()
+                        .toString()
+                        .replaceAll("\\[|\\]", "")
+                        .split(" - ");
+        // The array contain: bk[0]: id | bk[1]: title
+        // If one of its is empty, user are not selected an book
+        // to be removed in the ListBox
+        if (bk[0].isEmpty()) {
+            Utils.showAlert("Hãy chọn một quyển sách trong bảng sách đã mượn để bỏ.");
+            return;
+        }
+        
+        bkBorrowIds.remove(bkBorrowIds.indexOf(Integer.parseInt(bk[0])));
+        lstVBorrowBookList.getItems()
+                .remove(lstVBorrowBookList.getSelectionModel().getSelectedItem());
+        
     }
 
     @FXML
