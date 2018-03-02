@@ -65,4 +65,15 @@ public class QueryHelper {
                 + " WHERE phoneNumber = '%s'"
                 + " AND	 DaTra = 'false'", phoneNum);
     }
+    
+    public static String addLendNote(String phoneNum, String today) {
+        return String.format(
+                "INSERT INTO KhachHang_MuonSach"
+                + " VALUES ('%s', '%s', 'false')"
+                , phoneNum, today);
+    }
+    
+    public static String addLendBooks(String bks) {
+        return String.format("INSERT INTO Sach_SachDaMuon VALUES %s", bks);
+    }
 }

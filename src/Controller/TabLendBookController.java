@@ -12,6 +12,7 @@ import QLThuVien.QueryHelper;
 import QLThuVien.Utils;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -60,6 +61,9 @@ public class TabLendBookController implements Initializable {
     
     // Control the book Id(s) user has selected
     private ArrayList<Integer> bkBorrowIds;
+    
+    // Store the date of today
+    private Calendar now;
     
     private KhachHang kh;
 
@@ -160,7 +164,12 @@ public class TabLendBookController implements Initializable {
         confirmMes.append(String.format("\nTên người mượn: %s", kh.getFullName()));
         confirmMes.append("\n----------------------");
         
-        for (int i = 0; i < lstVBorrowBookList.getItems().size(); i++) {
+        int size = lstVBorrowBookList.getItems().size();
+        // Get the today info and set the return day to after 20 days
+        now = Calendar.getInstance();
+        now.add(Calendar.DATE, 20);
+        
+        for (int i = 0; i < size; i++) {
             confirmMes.append("\n");
             confirmMes.append(lstVBorrowBookList.getItems().get(i).toString());
         }
@@ -174,6 +183,15 @@ public class TabLendBookController implements Initializable {
                   , butDelBorrowBook
                   , butConfirmBorrowBook);
                 butLendBook.setDisable(false);
+                
+                // Add more information
+                lbBorrwerId.setText(kh.getFullName());
+                lbBorrowQuantity.setText(String.valueOf(size));
+                lbReturnDay.setText(
+                            now.get(Calendar.DATE) + "/"
+                            + (now.get(Calendar.MONTH) + 1) + "/" 
+                            + now.get(Calendar.YEAR)
+                            );
             }
         });
         
@@ -181,7 +199,31 @@ public class TabLendBookController implements Initializable {
 
     @FXML
     protected void butLendBookAction(ActionEvent event) {
-
+        now = Calendar.getInstance();
+        String today = now.get(Calendar.YEAR)
+                     + "-" + (now.get(Calendar.MONTH) + 1)
+                     + "-" + now.get(Calendar.DATE);
+        int insrtedNoteId = Database.insertLendNote(QueryHelper.addLendNote(kh.getPhoneNumber(), today));
+        if (insrtedNoteId == -1) {
+            Utils.showAlert("Có lỗi xảy ra khi thêm phiếu mượn.");
+        } else {
+            
+            // Build a String follow this format:
+            // (bkId1, isrtedId),(bkId2, isrtedId),...
+            StringBuilder books = new StringBuilder();
+            books.append(String.format("(%d, %d)", bkBorrowIds.get(0), insrtedNoteId));
+            for (int i = 1; i < bkBorrowIds.size(); i++) {
+                books.append(",");
+                books.append(String.format("(%d, %d)", bkBorrowIds.get(i), insrtedNoteId));
+            }
+            
+            int row = Database.insertData(QueryHelper.addLendBooks(books.toString()));
+            if (row == 0) {
+                Utils.showAlert("Có lỗi xảy ra khi thêm sách vào danh sách các cuốn sách vừa cho mượn.");
+            } else {
+                lbLendBookStatus.setText("Cho mượn thành công!");
+            }
+        }
     }
 
 }

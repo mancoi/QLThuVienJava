@@ -119,6 +119,24 @@ public class Database {
         return rows;
     }
     
+        public static int insertLendNote(String query) {
+        int id = -1;
+        try {
+            
+            Statement statement = con.createStatement();
+            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.getGeneratedKeys();
+            
+            if (rs.next()) {
+               id = rs.getInt(1);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+    
     public static boolean isConflictId(String query) {
         boolean isConflict = false;
         try {
