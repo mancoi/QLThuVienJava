@@ -222,6 +222,7 @@ public class TabLendBookController implements Initializable {
                 Utils.showAlert("Có lỗi xảy ra khi thêm sách vào danh sách các cuốn sách vừa cho mượn.");
             } else {
                 lbLendBookStatus.setText("Cho mượn thành công!");
+                butLendBook.setDisable(true);
             }
         }
     }
