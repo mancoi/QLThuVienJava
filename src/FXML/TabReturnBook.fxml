@@ -33,6 +33,7 @@
         />
                                                 
         <Button fx:id="butConfirmReturn"
+                onAction="#butConfirmReturnAction" 
                 text="Xác nhận trả sách" 
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="3" 
