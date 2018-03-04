@@ -76,4 +76,21 @@ public class QueryHelper {
     public static String addLendBooks(String bks) {
         return String.format("INSERT INTO Sach_SachDaMuon VALUES %s", bks);
     }
+    
+    public static String getLendNoteNotReturned(String phoneNum) {
+        return String.format(
+                "SELECT MaPhieuMuon,"
+                + " CONVERT(varchar, [NgayMuon], 103) AS NgayMuon"
+                + " FROM KhachHang_MuonSach"
+                + " WHERE phoneNumber = '%s' AND DaTra = 'false'" , phoneNum);
+    }
+    
+    public static String getBooksOfLendNote(String lendNoteId) {
+        return String.format(
+                "SELECT Sach.TenSach"
+                + " FROM KhachHang_MuonSach, Sach, Sach_SachDaMuon"
+                + " WHERE KhachHang_MuonSach.MaPhieuMuon = Sach_SachDaMuon.MaPhieuMuon"
+                + " AND Sach.MaSach = Sach_SachDaMuon.MaSach"
+                + " AND KhachHang_MuonSach.MaPhieuMuon = '%s'", lendNoteId);
+    }
 }

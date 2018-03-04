@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
@@ -166,6 +167,46 @@ public class Database {
         
         return !isNotReturnedAll;
         
+    }
+    
+    public static String[] getLendNoteInfo(String query) {
+        String[] rs = null;
+        try {
+            Database.tryToConnect();
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            //If there's no result, don't do this
+            if (resultSet.next()) {
+                rs = new String[2];
+                rs[0] = String.valueOf(resultSet.getInt(1));
+                rs[1] = resultSet.getString(2);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("DatabaseClass: " + ex.getMessage());
+            return rs;
+        }
+
+        return rs;
+    }
+    
+    public static ArrayList<String> getBooksOfLendNote(String query) {
+        ArrayList<String> rs = new ArrayList<>();
+        try {
+            Database.tryToConnect();
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            //If there's no result, don't do this
+            while (resultSet.next()) {
+                rs.add(resultSet.getString(1));
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("DatabaseClass: " + ex.getMessage());
+            return rs;
+        }
+
+        return rs;
     }
 
     public static int populateTable(String query) {
