@@ -93,4 +93,19 @@ public class QueryHelper {
                 + " AND Sach.MaSach = Sach_SachDaMuon.MaSach"
                 + " AND KhachHang_MuonSach.MaPhieuMuon = '%s'", lendNoteId);
     }
+    
+    public static String getAllLendNote(String phoneNum) {
+        return String.format("SELECT" 
+                + " MaPhieuMuon, phoneNumber" 
+                + " ,CONVERT(varchar, NgayMuon, 103) AS NgayMuon" 
+                + " ,CASE  WHEN DaTra = 1 THEN 'TRUE' ELSE 'FALSE' END AS DaTra" 
+                + " FROM KhachHang_MuonSach"
+                + " WHERE phoneNumber = '%s'", phoneNum);
+    }
+    
+    public static String returnLendNote(String lendNoteId) {
+        return String.format("UPDATE KhachHang_MuonSach" 
+                + " SET DaTra = 'true'" 
+                + " WHERE MaPhieuMuon = '%s' ", lendNoteId);
+    }
 }

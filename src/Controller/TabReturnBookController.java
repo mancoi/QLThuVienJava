@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -29,8 +30,12 @@ public class TabReturnBookController implements Initializable {
     
     @FXML
     private TextField txtPersonReturnId;
+    @FXML
+    private Label lbReturnBkStatus;
     
     private KhachHang kh;
+    private String lendNoteId;
+    
     /**
      * Initializes the controller class.
      */
@@ -48,7 +53,7 @@ public class TabReturnBookController implements Initializable {
             Utils.showAlert("Người dùng này không tồn tại");
         } else {
             kh.setNames();
-            showMessage(getMessage(kh));
+            showMessage(getMessage(kh), lendNoteId);
         }
     }
     
@@ -64,6 +69,9 @@ public class TabReturnBookController implements Initializable {
             return null;
         }
         
+        lendNoteId = lendNoteInfo[0];
+        
+        // Get books of this lend note
         ArrayList<String> booksOfLendNote = 
                 Database.getBooksOfLendNote(
                         QueryHelper.getBooksOfLendNote(lendNoteInfo[0]));
@@ -87,7 +95,7 @@ public class TabReturnBookController implements Initializable {
         return message.toString();
     }
     
-    private void showMessage(String mes) {
+    private void showMessage(String mes, String lndNtId) {
         
         if (null == mes) {
             return;
@@ -95,12 +103,17 @@ public class TabReturnBookController implements Initializable {
         
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, mes);
         alert.setHeaderText("Xác nhận phiếu mượn");
-        alert.show();
-//        alert.showAndWait().ifPresent(response -> {
-//            if (response == ButtonType.OK) {
-//                Platform.exit();
-//            }
-//        });
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                int row = Database.insertData(QueryHelper.returnLendNote(lndNtId));
+                if (row == 0) {
+                    Utils.showAlert("Có lỗi xảy ra khi trả sách.");
+                } else {
+                    lbReturnBkStatus.setText("Trả hoàn tất.");
+                    Database.populateTable(QueryHelper.getAllLendNote(kh.getPhoneNumber()));
+                }
+            }
+        });
     }
     
 }
