@@ -19,7 +19,7 @@ import javafx.stage.WindowEvent;
  *
  * @author Doctor
  */
-public class LogIn extends Application {
+public class MainClass extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
