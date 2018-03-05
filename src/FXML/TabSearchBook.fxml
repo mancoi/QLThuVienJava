@@ -8,22 +8,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Tab xmlns:fx="http://javafx.com/fxml/1" 
-     closable="false" text="Tra cứu sách"
-     fx:controller="Controller.TabSearchBookController">
-    <graphic>
-        <ImageView fitHeight="18.0" 
-                   fitWidth="18.0" 
-                   pickOnBounds="true" 
-                   preserveRatio="true">
-            <image>
-                <Image url="@../Image/ic_library_books.png" />
-            </image>
-        </ImageView>
-    </graphic>
-    <content>
+
         <GridPane alignment="CENTER" hgap="8.0"  vgap="8.0"
                   prefHeight="250"  prefWidth="800"
+                  xmlns:fx="http://javafx.com/fxml/1"
+                  fx:controller="Controller.TabSearchBookController"
         >
             <stylesheets>
                 <URL value="@/css/styleSheet.css"/>
@@ -111,6 +100,4 @@
                 </HBox>
             </children>             
         </GridPane>
-    </content>
-                     
-</Tab>
+  

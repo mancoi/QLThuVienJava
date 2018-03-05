@@ -62,7 +62,23 @@
                 <TabPane fx:id="tabPaneQuanLy" maxHeight="315.0" minHeight="250.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <!--Tab thực hiện chức năng tra cứu sách-->
-                        <fx:include source="TabSearchBook.fxml" />
+                        <Tab  
+                            closable="false" text="Tra cứu sách"
+                        >
+                            <graphic>
+                                <ImageView fitHeight="18.0" 
+                                           fitWidth="18.0" 
+                                           pickOnBounds="true" 
+                                           preserveRatio="true">
+                                    <image>
+                                        <Image url="@../Image/ic_library_books.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <content>
+                                <fx:include source="TabSearchBook.fxml" />
+                            </content>
+                        </Tab>
                            
                         <!--Tab thực hiện chức năng tra cứu thông tin độc giả-->
                         <Tab fx:id="tabThongTinDocGia" text="Thông tin độc giả">
