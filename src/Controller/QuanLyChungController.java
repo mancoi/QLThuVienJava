@@ -5,18 +5,12 @@
  */
 package Controller;
 
-import Data.ComboBoxData;
 import Data.Database;
-import QLThuVien.Admin;
-import QLThuVien.Book;
-import QLThuVien.KhachHang;
 import QLThuVien.QueryHelper;
 import QLThuVien.Utils;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +36,15 @@ public class QuanLyChungController implements Initializable {
         //Set the tableView
         Utils.setTblViewResult(tblViewResult);
 
-        //tabPaneQuanLy.getTabs().remove(tabThongTinDocGia);
+        // Remove not neccessary Tabs if the current user is a KhachHang
+        if (Utils.getCurrentUserRole().equals("KhachHang")) {
+            tabPaneQuanLy.getTabs().remove(tabThemThanhVien);
+            tabPaneQuanLy.getTabs().remove(tabMuonSach);
+            tabPaneQuanLy.getTabs().remove(tabThemSach);
+            tabPaneQuanLy.getTabs().remove(tabThongKe);
+            tabPaneQuanLy.getTabs().remove(tabTraSach);
+        }
+
         menuButtonUsername.setText("Xin chào " + Utils.getCurrentUserFullName());
         Database.populateTable(QueryHelper.selectAllBooks());
 
@@ -88,7 +90,15 @@ public class QuanLyChungController implements Initializable {
     @FXML
     private TabPane tabPaneQuanLy;
     @FXML
-    private Tab tabThongTinDocGia;
+    private Tab tabThemThanhVien;
+    @FXML
+    private Tab tabThemSach;
+    @FXML
+    private Tab tabMuonSach;
+    @FXML
+    private Tab tabTraSach;
+    @FXML
+    private Tab tabThongKe;
     @FXML
     private MenuButton menuButtonUsername;
 
