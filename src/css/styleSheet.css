@@ -27,3 +27,9 @@ and open the template in the editor.
 .labelHeader {
     -fx-font-weight: bold; 
 }
+
+.tip {
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-text-fill: green;
+}
