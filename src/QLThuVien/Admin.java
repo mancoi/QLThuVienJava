@@ -60,7 +60,7 @@ public class Admin {
     private boolean usernameIsOK() {
         String query = "SELECT * FROM Admin WHERE username='" + username + "'";
         if (Database.isConflictId(query)) {
-            Utils.showAlert("Trùng tên đăng nhập, vui lòng chọn tên đăng nhập khác");
+            Utils.showAlertWarn("Trùng tên đăng nhập, vui lòng chọn tên đăng nhập khác");
             return false;
         } else {
             return true;

@@ -73,9 +73,22 @@ public class Utils {
         ctrl3.setDisable(false);
     }
     
-    public static void showAlert(String mes) {
+    public static void showAlertWarn(String mes) {
         Alert alert = new Alert(Alert.AlertType.WARNING, mes);
         alert.show();
+    }
+    
+    public static void showAlertOptional(
+            String mes
+            , String title
+            , Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType, mes);
+        alert.setHeaderText(title);
+        alert.show();
+    }
+    
+    public static boolean currentUserIsAdmin() {
+        return currentUserRole.equals("Admin");
     }
     
     public static void confirmExit() {

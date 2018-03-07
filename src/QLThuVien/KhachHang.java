@@ -50,13 +50,13 @@ public class KhachHang {
     public void setNames() {
         String query
                 = "SELECT Ho, Ten FROM KhachHang Where phoneNumber = " + phoneNumber;
-        String[] names = Database.getKHName(query);
+        String[] names = Database.getUserName(query);
 
         if (names != null) {
             lastName = names[0];
             firstName = names[1];
         } else {
-            Utils.showAlert("Mã người dùng không tồn tại.");
+            Utils.showAlertWarn("Mã người dùng không tồn tại.");
         }
 
     }
@@ -65,7 +65,7 @@ public class KhachHang {
 
         //Check the username first to make sure it not exists
         if (usernameIsExists()) {
-            Utils.showAlert("Trùng số điện thoại, người dùng đã tồn tại");
+            Utils.showAlertWarn("Trùng số điện thoại, người dùng đã tồn tại");
             return;
         }
 
@@ -112,7 +112,7 @@ public class KhachHang {
             int phoneNum = Integer.parseInt(phoneNumber);
             this.phoneNumber = String.valueOf(phoneNum);
         } catch (NumberFormatException ex) {
-            Utils.showAlert("Mã khách hàng phải là một chuỗi số!\n" + ex.getMessage());
+            Utils.showAlertWarn("Mã khách hàng phải là một chuỗi số!\n" + ex.getMessage());
         }
 
     }
