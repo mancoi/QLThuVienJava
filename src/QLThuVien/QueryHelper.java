@@ -108,4 +108,20 @@ public class QueryHelper {
                 + " SET DaTra = 'true'" 
                 + " WHERE MaPhieuMuon = '%s' ", lendNoteId);
     }
+    
+    public static String searchUserInAdmin(String id) {
+        
+        return String.format(
+                    "SELECT Ho, Ten FROM Admin"
+                    + " WHERE username = '%s'", id);
+        
+    }
+    
+    public static String searchUserInKhachHang(String id) {
+        
+        return String.format(
+                    "SELECT Ho, Ten FROM KhachHang"
+                    + " WHERE phoneNumber = '%s'", id);
+        
+    }
 }

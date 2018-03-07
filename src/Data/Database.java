@@ -60,7 +60,7 @@ public class Database {
      * @param query
      * @return
      */
-    public static String[] getKHName(String query) {
+    public static String[] getUserName(String query) {
         String[] rs = null;
         try {
             Database.tryToConnect();
