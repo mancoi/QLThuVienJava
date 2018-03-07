@@ -50,7 +50,7 @@ public class TabReturnBookController implements Initializable {
         kh.setPhoneNumber(txtPersonReturnId.getText());
         // Make sure the input is a valid user
         if (!kh.usernameIsExists()) {
-            Utils.showAlert("Người dùng này không tồn tại");
+            Utils.showAlertWarn("Người dùng này không tồn tại");
         } else {
             kh.setNames();
             showMessage(getMessage(kh), lendNoteId);
@@ -65,7 +65,7 @@ public class TabReturnBookController implements Initializable {
                 );
         
         if (lendNoteInfo == null) {
-            Utils.showAlert("Khách hàng này không có phiếu mượn chưa trả.");
+            Utils.showAlertWarn("Khách hàng này không có phiếu mượn chưa trả.");
             return null;
         }
         
@@ -77,7 +77,7 @@ public class TabReturnBookController implements Initializable {
                         QueryHelper.getBooksOfLendNote(lendNoteInfo[0]));
         
         if (booksOfLendNote.isEmpty()) {
-            Utils.showAlert("Có lỗi xảy ra khi lấy danh sách sách đã mượn.");
+            Utils.showAlertWarn("Có lỗi xảy ra khi lấy danh sách sách đã mượn.");
             return null;
         }
         
@@ -107,7 +107,7 @@ public class TabReturnBookController implements Initializable {
             if (response == ButtonType.OK) {
                 int row = Database.insertData(QueryHelper.returnLendNote(lndNtId));
                 if (row == 0) {
-                    Utils.showAlert("Có lỗi xảy ra khi trả sách.");
+                    Utils.showAlertWarn("Có lỗi xảy ra khi trả sách.");
                 } else {
                     lbReturnBkStatus.setText("Trả hoàn tất.");
                     Database.populateTable(QueryHelper.getAllLendNote(kh.getPhoneNumber()));

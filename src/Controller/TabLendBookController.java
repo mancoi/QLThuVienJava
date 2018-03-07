@@ -83,10 +83,10 @@ public class TabLendBookController implements Initializable {
         String query = QueryHelper.checkBorrower(kh.getPhoneNumber());
 
         if (!kh.usernameIsExists()) {
-            Utils.showAlert("Người dùng này không tồn tại");
+            Utils.showAlertWarn("Người dùng này không tồn tại");
         } else if (!Database.isReturnedAllBook(query)) {
             Database.populateTable(query);
-            Utils.showAlert("Không thể cho mượn!\nNgười dùng này vẫn còn phiếu mượn chưa trả");
+            Utils.showAlertWarn("Không thể cho mượn!\nNgười dùng này vẫn còn phiếu mượn chưa trả");
         } else {
             lbCheckBrwStatus.setText("OK");
             Database.populateTable(QueryHelper.selectAllBooks());
@@ -109,7 +109,7 @@ public class TabLendBookController implements Initializable {
         String[] fields = row.toString().replaceAll("\\[|\\]", "").replaceAll(", ", ",").split(",");
         
         if (fields[0].isEmpty()) {
-            Utils.showAlert("Hãy chọn một quyển sách trong bảng ở dưới để mượn.");
+            Utils.showAlertWarn("Hãy chọn một quyển sách trong bảng ở dưới để mượn.");
             return;
         }
         
@@ -124,7 +124,7 @@ public class TabLendBookController implements Initializable {
              bkBorrowIds.add(bk.getBookId());
              lstVBorrowBookList.getItems().add(bk);
         }
-        else Utils.showAlert("Không thể mượn một quyển nhiều lần trong một lần mượn!");
+        else Utils.showAlertWarn("Không thể mượn một quyển nhiều lần trong một lần mượn!");
         
     }
 
@@ -144,7 +144,7 @@ public class TabLendBookController implements Initializable {
         // If one of its is empty, user are not selected an book
         // to be removed in the ListBox
         if (bk[0].isEmpty()) {
-            Utils.showAlert("Hãy chọn một quyển sách trong bảng sách đã mượn để bỏ.");
+            Utils.showAlertWarn("Hãy chọn một quyển sách trong bảng sách đã mượn để bỏ.");
             return;
         }
         
@@ -205,7 +205,7 @@ public class TabLendBookController implements Initializable {
                      + "-" + now.get(Calendar.DATE);
         int insrtedNoteId = Database.insertLendNote(QueryHelper.addLendNote(kh.getPhoneNumber(), today));
         if (insrtedNoteId == -1) {
-            Utils.showAlert("Có lỗi xảy ra khi thêm phiếu mượn.");
+            Utils.showAlertWarn("Có lỗi xảy ra khi thêm phiếu mượn.");
         } else {
             
             // Build a String follow this format:
@@ -219,7 +219,7 @@ public class TabLendBookController implements Initializable {
             
             int row = Database.insertData(QueryHelper.addLendBooks(books.toString()));
             if (row == 0) {
-                Utils.showAlert("Có lỗi xảy ra khi thêm sách vào danh sách các cuốn sách vừa cho mượn.");
+                Utils.showAlertWarn("Có lỗi xảy ra khi thêm sách vào danh sách các cuốn sách vừa cho mượn.");
             } else {
                 lbLendBookStatus.setText("Cho mượn thành công!");
                 butLendBook.setDisable(true);
