@@ -24,14 +24,7 @@
                       <Button fx:id="butGetOldLendNote" onAction="#butGetOldLendNoteAction" text="Tra sách đã mượn" />
                   </children>
               </HBox>
-              <Label 
-                  styleClass="tip"
-                  alignment="CENTER" 
-                  text="Để trống số điện thoại để xem người dùng hiện tại." 
-                  textAlignment="CENTER" 
-                  GridPane.columnSpan="2" 
-                  GridPane.halignment="CENTER"
-                  GridPane.rowIndex="1" />
+              <Label alignment="CENTER" styleClass="note" text="Để trống số điện thoại để xem người dùng hiện tại." textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
           </children>
          <columnConstraints>
             <ColumnConstraints />
@@ -44,10 +37,30 @@
          </rowConstraints>
                                                  
       </GridPane>
-      <VBox fx:id="vBoxListBooksOfLendNote" alignment="CENTER" managed="false" prefHeight="250.0" prefWidth="300.0" spacing="4.0">
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
+      <VBox fx:id="vBoxBksOfLNoteContainer" 
+            managed="false" 
+            alignment="CENTER" prefHeight="150.0" prefWidth="250.0" spacing="4.0">
+         <children>
+            <HBox prefHeight="22.0" prefWidth="250.0" spacing="4.0">
+               <children>
+                  <Label
+                      styleClass="labelHeader" 
+                      text="Sách đã mượn của phiếu số" />
+                  <Label 
+                      styleClass="note"
+                      fx:id="lbLendNoteId"
+                      text="-/-" 
+                  />
+               </children>
+            </HBox>
+            <ListView fx:id="listViewBooksOfLendNote" 
+                      
+                      prefHeight="137.0" prefWidth="250.0">
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </ListView>
+         </children>
       </VBox>
    </children>
 </HBox>

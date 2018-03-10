@@ -6,7 +6,6 @@
 package Data;
 
 import QLThuVien.Utils;
-import com.microsoft.sqlserver.jdbc.SQLServerCallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -23,7 +22,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
-import javax.rmi.CORBA.Util;
 
 /**
  *
@@ -53,10 +51,11 @@ public class Database {
         }
         return "Kết nối CSDL thành công";
     }
-    
+
     /**
-     * This method return an array contain KhachHang LastName and FirstName,
-     * if there are nothing, return an null array.
+     * This method return an array contain KhachHang LastName and FirstName, if
+     * there are nothing, return an null array.
+     *
      * @param query
      * @return
      */
@@ -105,70 +104,69 @@ public class Database {
 
         return rs;
     }
-    
+
     public static int insertData(String query) {
         int rows = 0;
         try {
-            
+
             Statement statement = con.createStatement();
             rows = statement.executeUpdate(query);
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rows;
     }
-    
-        public static int insertLendNote(String query) {
+
+    public static int insertLendNote(String query) {
         int id = -1;
         try {
-            
+
             Statement statement = con.createStatement();
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = statement.getGeneratedKeys();
-            
+
             if (rs.next()) {
-               id = rs.getInt(1);
+                id = rs.getInt(1);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id;
     }
-    
+
     public static boolean isConflictId(String query) {
         boolean isConflict = false;
         try {
-            
+
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             isConflict = resultSet.next();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return isConflict;
     }
-    
-    public static boolean isReturnedAllBook (String query) {
+
+    public static boolean isReturnedAllBook(String query) {
         boolean isNotReturnedAll = false;
         try {
-            
+
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             //If the user is not return all books, this statement will return true
             isNotReturnedAll = resultSet.next();
-            
+
         } catch (SQLException ex) {
             System.err.printf("Database.isReturnedAllBook bị lỗi\n%s", ex.getMessage());
         }
-        
+
         return !isNotReturnedAll;
-        
+
     }
-    
+
     public static String[] getLendNoteInfo(String query) {
         String[] rs = null;
         try {
@@ -189,7 +187,7 @@ public class Database {
 
         return rs;
     }
-    
+
     public static ArrayList<String> getBooksOfLendNote(String query) {
         ArrayList<String> rs = new ArrayList<>();
         try {
@@ -222,11 +220,10 @@ public class Database {
 
             //ResultSet
             ResultSet rs = con.createStatement().executeQuery(query);
-            
+
             /**
              * ********************************
-             * TABLE COLUMN ADDED DYNAMICALLY 
-             * ********************************
+             * TABLE COLUMN ADDED DYNAMICALLY ********************************
              */
             for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 //We are using non property style for making dynamic table
@@ -244,10 +241,8 @@ public class Database {
 
             /**
              * ******************************
-             * Data added to ObservableList 
-             * ******************************
+             * Data added to ObservableList ******************************
              */
-            
             while (rs.next()) {
                 //Iterate Row
                 ObservableList<String> row = FXCollections.observableArrayList();
@@ -263,8 +258,7 @@ public class Database {
             //FINALLY ADDED TO TableView
             tblViewResult.setItems(data);
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error on Building Data");
+            System.out.println("Error on Building Data " + e.getMessage());
         }
         return rows;
     }
