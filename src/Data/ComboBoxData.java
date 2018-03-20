@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -54,6 +56,13 @@ public class ComboBoxData {
             }
         } catch (SQLException ex) {
             System.err.println("ComboBoxData: " + ex.getMessage());
+        }
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
         }
         
         return rs;

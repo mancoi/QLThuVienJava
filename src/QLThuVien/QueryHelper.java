@@ -5,8 +5,6 @@
  */
 package QLThuVien;
 
-import java.sql.PreparedStatement;
-
 /**
  *
  * @author Doctor

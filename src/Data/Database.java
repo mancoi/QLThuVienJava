@@ -49,6 +49,14 @@ public class Database {
         } catch (Exception ex) {
             return "Kết nối thất bại " + ex.getMessage();
         }
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
+        }
+        
         return "Kết nối CSDL thành công";
     }
 
@@ -76,6 +84,14 @@ public class Database {
             System.err.println("DatabaseClass: " + ex.getMessage());
             return rs;
         }
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
+        }
+        
         return rs;
     }
 
@@ -101,6 +117,13 @@ public class Database {
             System.err.println("DatabaseClass: " + ex.getMessage());
             return rs;
         }
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
+        }
 
         return rs;
     }
@@ -108,12 +131,19 @@ public class Database {
     public static int insertData(String query) {
         int rows = 0;
         try {
-
+            Database.tryToConnect();
             Statement statement = con.createStatement();
             rows = statement.executeUpdate(query);
 
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
         }
         return rows;
     }
@@ -122,6 +152,7 @@ public class Database {
         int id = -1;
         try {
 
+            Database.tryToConnect();
             Statement statement = con.createStatement();
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = statement.getGeneratedKeys();
@@ -133,12 +164,20 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
+        }
         return id;
     }
 
     public static boolean isConflictId(String query) {
         boolean isConflict = false;
         try {
+            Database.tryToConnect();
 
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -147,12 +186,20 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
+        }
         return isConflict;
     }
 
     public static boolean isReturnedAllBook(String query) {
         boolean isNotReturnedAll = false;
         try {
+            Database.tryToConnect();
 
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -162,7 +209,13 @@ public class Database {
         } catch (SQLException ex) {
             System.err.printf("Database.isReturnedAllBook bị lỗi\n%s", ex.getMessage());
         }
-
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
+        }
         return !isNotReturnedAll;
 
     }
@@ -184,6 +237,13 @@ public class Database {
             System.err.println("DatabaseClass: " + ex.getMessage());
             return rs;
         }
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
+        }
 
         return rs;
     }
@@ -203,6 +263,13 @@ public class Database {
             System.err.println("DatabaseClass: " + ex.getMessage());
             return rs;
         }
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
+        }
 
         return rs;
     }
@@ -217,7 +284,7 @@ public class Database {
         tblViewResult.getItems().clear();
         int rows = 0;
         try {
-
+            Database.tryToConnect();
             //ResultSet
             ResultSet rs = con.createStatement().executeQuery(query);
 
@@ -259,6 +326,13 @@ public class Database {
             tblViewResult.setItems(data);
         } catch (Exception e) {
             System.out.println("Error on Building Data " + e.getMessage());
+        }
+        finally {
+            if (null != con) {
+                try {
+                    con.close();
+                } catch (SQLException ex) { }
+            }
         }
         return rows;
     }
