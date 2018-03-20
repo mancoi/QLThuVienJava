@@ -19,19 +19,6 @@ import java.util.ArrayList;
  */
 public class ComboBoxData {
     
-    private static Connection con;
-    
-    private static Connection connect() {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection(Utils.getDATABASE_CONNECTION_STRING());
-        } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Kết nối thất bại " + ex.getMessage());
-        }
-
-        return con;
-    }
-    
     public static ArrayList<String> populateCmbBoxTheLoai() {
 
         final String query = "SELECT TenTheLoai FROM Sach_TheLoai";
@@ -56,9 +43,9 @@ public class ComboBoxData {
     private static ArrayList<String> getData(String query) {
         
         ArrayList<String> rs = new ArrayList<>();
-        
+        Connection con = null;
         try {
-            ComboBoxData.connect();
+            con = Database.tryToConnect();
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             

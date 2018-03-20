@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
  */
 public class QueryHelper {
 
+    private static final String FORMAT = "%d/%m/%Y";
+    
     private QueryHelper() {
     }
 
@@ -68,8 +70,8 @@ public class QueryHelper {
     
     public static String addLendNote(String phoneNum, String today) {
         return String.format(
-                "INSERT INTO KhachHang_MuonSach"
-                + " VALUES ('%s', '%s', 'false')"
+                "INSERT INTO KhachHang_MuonSach (phoneNumber, NgayMuon, DaTra)"
+                + " VALUES ('%s', '%s', 0)"
                 , phoneNum, today);
     }
     
@@ -78,11 +80,12 @@ public class QueryHelper {
     }
     
     public static String getLendNoteNotReturned(String phoneNum) {
+
         return String.format(
                 "SELECT MaPhieuMuon,"
-                + " CONVERT(varchar, [NgayMuon], 103) AS NgayMuon"
+                + " date_format(NgayMuon, '%s') AS NgayMuon"
                 + " FROM KhachHang_MuonSach"
-                + " WHERE phoneNumber = '%s' AND DaTra = 'false'" , phoneNum);
+                + " WHERE phoneNumber = '%s' AND DaTra = 'false'" , FORMAT, phoneNum);
     }
     
     public static String getBooksOfLendNote(String lendNoteId) {
@@ -97,15 +100,15 @@ public class QueryHelper {
     public static String getAllLendNote(String phoneNum) {
         return String.format("SELECT" 
                 + " MaPhieuMuon, phoneNumber" 
-                + " ,CONVERT(varchar, NgayMuon, 103) AS NgayMuon" 
+                + " ,date_format(NgayMuon, '%s') AS NgayMuon" 
                 + " ,CASE  WHEN DaTra = 1 THEN 'TRUE' ELSE 'FALSE' END AS DaTra" 
                 + " FROM KhachHang_MuonSach"
-                + " WHERE phoneNumber = '%s'", phoneNum);
+                + " WHERE phoneNumber = '%s'", FORMAT, phoneNum);
     }
     
     public static String returnLendNote(String lendNoteId) {
         return String.format("UPDATE KhachHang_MuonSach" 
-                + " SET DaTra = 'true'" 
+                + " SET DaTra = 1" 
                 + " WHERE MaPhieuMuon = '%s' ", lendNoteId);
     }
     

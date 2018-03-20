@@ -26,7 +26,7 @@ public class Utils {
     private static TableView tblViewResult;
     
     private static final String DATABASE_CONNECTION_STRING = 
-            "jdbc:sqlserver://localhost;databaseName=QLThuVien;username=sa";
+            "jdbc:mysql://localhost/QLThuVien";
 
     public static void setCurrentUser(String userId, String role) {
         currentUserId = userId;

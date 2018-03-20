@@ -33,8 +33,8 @@ public class Database {
 
     public static Connection tryToConnect() {
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection(Utils.getDATABASE_CONNECTION_STRING());
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(Utils.getDATABASE_CONNECTION_STRING(),"root","123456");
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Kết nối thất bại " + ex.getMessage());
         }
