@@ -53,6 +53,13 @@ public class ComboBoxData {
         
     }
     
+    public static ArrayList<String> populateCmbBoxNxb() {
+
+        final String query = "SELECT TenNXB FROM NhaXuatBan";
+        return getData(query);
+        
+    }
+    
     private static ArrayList<String> getData(String query) {
         
         ArrayList<String> rs = new ArrayList<>();
