@@ -17,7 +17,7 @@ public class QueryHelper {
     }
 
     public static String selectAllBooks() {
-        return "SELECT MaSach, TenSach, TacGia, TenTheLoai, TenNXB, NamXuatBan, SoLuong"
+        return "SELECT MaSach, TenSach, TacGia, TenTheLoai, TenNXB, NamXuatBan"
                 + " FROM Sach, Sach_TheLoai, NhaXuatBan"
                 + " WHERE Sach.MaTheLoai = Sach_TheLoai.MaTheLoai"
                 + " AND   Sach.MaNXB = NhaXuatBan.MaNXB";
@@ -43,7 +43,7 @@ public class QueryHelper {
         param[3] = citeria[3].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[3] + "%'";
 
         return String.format(
-                "SELECT MaSach, TenSach, TacGia, TenTheLoai, TenNXB, NamXuatBan, SoLuong"
+                "SELECT MaSach, TenSach, TacGia, TenTheLoai, TenNXB, NamXuatBan"
                 + " FROM Sach, Sach_TheLoai, NhaXuatBan"
                 + " WHERE Sach.MaTheLoai = Sach_TheLoai.MaTheLoai"
                 + " AND Sach.MaNXB = NhaXuatBan.MaNXB"
@@ -123,5 +123,16 @@ public class QueryHelper {
                     "SELECT Ho, Ten FROM KhachHang"
                     + " WHERE phoneNumber = '%s'", id);
         
+    }
+    
+    public static String insertBook(String[] params) {
+                
+        return String.format(
+                "INSERT INTO Sach VALUES ('%s','%s','%s','%s','%s')"
+                , params[0]
+                , params[1]
+                , params[2]
+                , params[3]
+                , params[4] );
     }
 }
