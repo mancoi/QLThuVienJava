@@ -207,6 +207,39 @@ public class Database {
         return rs;
     }
 
+    public static int getGenreOrPublsherId(String query) {
+
+        int id = -1;
+        try {
+            Statement statement = con.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return id;
+        }
+        return id;
+    }
+
+    public static boolean publisherIsExist(String query) {
+        boolean isExists = false;
+        try {
+            Statement statement = con.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                isExists = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return isExists;
+        }
+        return isExists;
+    }
+    
     public static int populateTable(String query) {
 
         TableView tblViewResult = Utils.getTblViewResult();
