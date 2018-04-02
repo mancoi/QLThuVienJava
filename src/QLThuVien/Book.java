@@ -66,20 +66,18 @@ public class Book {
         int pId = getPublisherId(publisher);
         if (-1 != pId) {
             publisherId = pId;
-        } else return;
-        
+        } else {
+            return;
+        }
+
         // If the yearPublish equal to 0, it's mean the user has typed 
         // invalid input.
         if (0 == yearPublish) {
             return;
         }
-        
+
         String[] params = {
-                title
-                , author
-                , String.valueOf(genreId)
-                , String.valueOf(publisherId)
-                , String.valueOf(yearPublish)};
+            title, author, String.valueOf(genreId), String.valueOf(publisherId), String.valueOf(yearPublish)};
 
         int row = Database.insertData(QueryHelper.insertBook(params));
         if (row > 0) {
@@ -87,6 +85,17 @@ public class Book {
         }
     }
 
+    public void updateBook() {
+        int row = Database.insertData(QueryHelper.updateBook(this));
+        if (row != 0) {
+            Utils.showAlertOptional(
+                    "Sửa sách thành công sách có id: " + bookId
+                    , "Sửa thành công"
+                    , Alert.AlertType.INFORMATION);
+        }
+    }
+
+    // Check if the publisher is exists or not
     private void checkPublisher(String publisherName) {
         String query = "SELECT * FROM NhaXuatBan WHERE TenNXB = N'%s'";
 
