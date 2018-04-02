@@ -58,33 +58,32 @@ public class QueryHelper {
                 "INSERT INTO %s"
                 + " VALUES ('%s', '%s', N'%s', N'%s')", tblToInsert, params[0], params[1], params[2], params[3]);
     }
-    
+
     public static String checkBorrower(String phoneNum) {
         return String.format(
                 "SELECT * FROM KhachHang_MuonSach"
                 + " WHERE phoneNumber = '%s'"
                 + " AND	 DaTra = 'false'", phoneNum);
     }
-    
+
     public static String addLendNote(String phoneNum, String today) {
         return String.format(
                 "INSERT INTO KhachHang_MuonSach"
-                + " VALUES ('%s', '%s', 'false')"
-                , phoneNum, today);
+                + " VALUES ('%s', '%s', 'false')", phoneNum, today);
     }
-    
+
     public static String addLendBooks(String bks) {
         return String.format("INSERT INTO Sach_SachDaMuon VALUES %s", bks);
     }
-    
+
     public static String getLendNoteNotReturned(String phoneNum) {
         return String.format(
                 "SELECT MaPhieuMuon,"
                 + " CONVERT(varchar, [NgayMuon], 103) AS NgayMuon"
                 + " FROM KhachHang_MuonSach"
-                + " WHERE phoneNumber = '%s' AND DaTra = 'false'" , phoneNum);
+                + " WHERE phoneNumber = '%s' AND DaTra = 'false'", phoneNum);
     }
-    
+
     public static String getBooksOfLendNote(String lendNoteId) {
         return String.format(
                 "SELECT Sach.TenSach"
@@ -93,46 +92,57 @@ public class QueryHelper {
                 + " AND Sach.MaSach = Sach_SachDaMuon.MaSach"
                 + " AND KhachHang_MuonSach.MaPhieuMuon = '%s'", lendNoteId);
     }
-    
+
     public static String getAllLendNote(String phoneNum) {
-        return String.format("SELECT" 
-                + " MaPhieuMuon, phoneNumber" 
-                + " ,CONVERT(varchar, NgayMuon, 103) AS NgayMuon" 
-                + " ,CASE  WHEN DaTra = 1 THEN 'TRUE' ELSE 'FALSE' END AS DaTra" 
+        return String.format("SELECT"
+                + " MaPhieuMuon, phoneNumber"
+                + " ,CONVERT(varchar, NgayMuon, 103) AS NgayMuon"
+                + " ,CASE  WHEN DaTra = 1 THEN 'TRUE' ELSE 'FALSE' END AS DaTra"
                 + " FROM KhachHang_MuonSach"
                 + " WHERE phoneNumber = '%s'", phoneNum);
     }
-    
+
     public static String returnLendNote(String lendNoteId) {
-        return String.format("UPDATE KhachHang_MuonSach" 
-                + " SET DaTra = 'true'" 
+        return String.format("UPDATE KhachHang_MuonSach"
+                + " SET DaTra = 'true'"
                 + " WHERE MaPhieuMuon = '%s' ", lendNoteId);
     }
-    
+
     public static String searchUserInAdmin(String id) {
-        
+
         return String.format(
-                    "SELECT Ho, Ten FROM Admin"
-                    + " WHERE username = '%s'", id);
-        
+                "SELECT Ho, Ten FROM Admin"
+                + " WHERE username = '%s'", id);
+
     }
-    
+
     public static String searchUserInKhachHang(String id) {
-        
+
         return String.format(
-                    "SELECT Ho, Ten FROM KhachHang"
-                    + " WHERE phoneNumber = '%s'", id);
-        
+                "SELECT Ho, Ten FROM KhachHang"
+                + " WHERE phoneNumber = '%s'", id);
+
     }
-    
+
     public static String insertBook(String[] params) {
-                
+
         return String.format(
-                "INSERT INTO Sach VALUES ('%s','%s','%s','%s','%s')"
-                , params[0]
-                , params[1]
-                , params[2]
-                , params[3]
-                , params[4] );
+                "INSERT INTO Sach VALUES ('%s','%s','%s','%s','%s')", params[0], params[1], params[2], params[3], params[4]);
+    }
+
+    public static String updateBook(Book bk) {
+        return String.format("UPDATE Sach"
+                + " SET [TenSach] = N'%s'"
+                + " ,[TacGia] = N'%s'"
+                + " ,[MaTheLoai] = %d"
+                + " ,[MaNXB] = %d"
+                + " ,[NamXuatBan] = N'%s'"
+                + " WHERE MaSach = %d"
+                , bk.getTitle()
+                , bk.getAuthor()
+                , bk.getGenreId()
+                , bk.getPublisherId()
+                , bk.getYearPublish()
+                , bk.getBookId());
     }
 }
