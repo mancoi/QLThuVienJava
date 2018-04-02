@@ -117,7 +117,7 @@ public class TabTraThongTinDocGiaController implements Initializable {
             TableView lendNote = Utils.getTblViewResult();
             // Add the listener for the TableView to 
             // get books in the selected lend note.
-            Utils.getTblViewResult().getSelectionModel().selectedItemProperty().addListener(e -> {
+            lendNote.getSelectionModel().selectedItemProperty().addListener(e -> {
                 listViewBooksOfLendNote.getItems().clear();
 
                 // If the user still not selected any item, do nothing.
