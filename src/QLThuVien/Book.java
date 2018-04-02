@@ -82,15 +82,26 @@ public class Book {
         int row = Database.insertData(QueryHelper.insertBook(params));
         if (row > 0) {
             lbStatus.setText("Thêm sách " + title + " thành công");
-        }
+        } else
+            lbStatus.setText("Có lỗi xảy ra khi thêm sách.");
     }
 
     public void updateBook() {
         int row = Database.insertData(QueryHelper.updateBook(this));
         if (row != 0) {
             Utils.showAlertOptional(
-                    "Sửa sách thành công sách có id: " + bookId
+                    "Sửa thành công sách có id: " + bookId
                     , "Sửa thành công"
+                    , Alert.AlertType.INFORMATION);
+        }
+    }
+    
+    public void deleteBook(){
+        int row = Database.insertData(QueryHelper.deleteBook(bookId));
+        if (row != 0) {
+            Utils.showAlertOptional(
+                    "Xóa thành công sách có id: " + bookId
+                    , "Xóa thành công"
                     , Alert.AlertType.INFORMATION);
         }
     }
@@ -105,7 +116,7 @@ public class Book {
             alert.setHeaderText("Chưa tồn tại nhà xuất bản " + publisherName);
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    String isrtPublsherQuery = "INSERT INTO NhaXuatBan VALUES ('%s')";
+                    String isrtPublsherQuery = "INSERT INTO NhaXuatBan VALUES (N'%s')";
                     Database.insertData(String.format(isrtPublsherQuery, publisherName));
                 }
             });

@@ -127,7 +127,7 @@ public class QueryHelper {
     public static String insertBook(String[] params) {
 
         return String.format(
-                "INSERT INTO Sach VALUES ('%s','%s','%s','%s','%s')", params[0], params[1], params[2], params[3], params[4]);
+                "INSERT INTO Sach VALUES (N'%s',N'%s',N'%s',N'%s',N'%s')", params[0], params[1], params[2], params[3], params[4]);
     }
 
     public static String updateBook(Book bk) {
@@ -144,5 +144,9 @@ public class QueryHelper {
                 , bk.getPublisherId()
                 , bk.getYearPublish()
                 , bk.getBookId());
+    }
+    
+    public static String deleteBook(int bookId) {
+        return "DELETE FROM Sach WHERE MaSach = " + bookId;
     }
 }

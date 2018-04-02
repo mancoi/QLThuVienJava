@@ -80,7 +80,9 @@ public class TabAddBookController implements Initializable {
                 || cbPublisher.getEditor().getText().isEmpty()
                 || txtYearPublished.getText().isEmpty()) {
             Utils.showAlertOptional(
-                    "Không được để trống bất kỳ trường nào.", "Thiếu thông tin", Alert.AlertType.INFORMATION);
+                    "Không được để trống bất kỳ trường nào."
+                    , "Thiếu thông tin"
+                    , Alert.AlertType.INFORMATION);
         } else {
             Book bk = new Book();
             bk.setTitle(txtBookTitle.getText());
@@ -120,15 +122,15 @@ public class TabAddBookController implements Initializable {
             bk.setBookId(Integer.parseInt(selectedBookId));
             bk.setTitle(txtBookTitle.getText());
             bk.setAuthor(txtAuthor.getText());
-            
+
             bk.setGenre(cbGenre.getSelectionModel().getSelectedItem().toString());
             bk.setGenreId(bk.getGenreId(bk.getGenre()));
-            
+
             bk.setPublisher(cbPublisher.getEditor().getText());
             bk.setPublisherId(bk.getPublisherId(bk.getPublisher()));
-            
+
             bk.setYearPublish(txtYearPublished.getText());
-            
+
             bk.updateBook();
             Database.populateTable(QueryHelper.selectAllBooks());
         }
@@ -136,9 +138,38 @@ public class TabAddBookController implements Initializable {
 
     @FXML
     protected void butDelBkAaction(ActionEvent event) {
-
+        if (selectedBookId.isEmpty()) {
+            Utils.showAlertOptional(
+                    "Hãy chọn một quyển sách để xóa."
+                    , "Chưa chọn quyển sách nào."
+                    , Alert.AlertType.INFORMATION);
+        } else {
+            Alert alert = new Alert(
+                    Alert.AlertType.WARNING
+                    , "Bạn có thật sự muốn xóa?\nSách đã xóa không thể khôi phục được.");
+            alert.setHeaderText("Cảnh báo");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    Book bk = new Book();
+                    bk.setBookId(Integer.parseInt(selectedBookId));
+                    bk.deleteBook();
+                    
+                    Database.populateTable(QueryHelper.selectAllBooks());
+                }
+            });
+            
+        }
     }
-
+    
+    @FXML
+    protected void butClearFieldsAction(ActionEvent event) {
+        txtBookTitle.clear();
+        txtAuthor.clear();
+        cbGenre.getSelectionModel().clearSelection();
+        cbPublisher.getSelectionModel().clearSelection();
+        txtYearPublished.clear();
+    }
+    
     private void addListener() {
         TableView tbvBooks = Utils.getTblViewResult();
         // Add the listener for the TableView to 
