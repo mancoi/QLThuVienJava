@@ -149,4 +149,41 @@ public class QueryHelper {
     public static String deleteBook(int bookId) {
         return "DELETE FROM Sach WHERE MaSach = " + bookId;
     }
+    
+    //---
+    //Query for statistical tab
+    //---
+    public static String countReader() {
+        return "SELECT COUNT(phoneNumber) FROM KhachHang";
+    }
+    
+    public static String countAdmin() {
+        return "SELECT COUNT(username) FROM Admin";
+    }
+    
+    public static String countLendNote() {
+        return "SELECT COUNT(MaPhieuMuon) FROM KhachHang_MuonSach WHERE DaTra = 'false'";
+    }
+    
+    public static String countBook() {
+        return "SELECT COUNT(MaSach) FROM Sach";
+    }
+    
+    public static String countPublisher() {
+        return "SELECT COUNT(MaNXB) FROM NhaXuatBan";
+    }
+    
+    public static String countGenre() {
+        return "SELECT COUNT(MaTheLoai) FROM Sach_TheLoai";
+    }
+    
+    public static String getListOfYears() {
+        return "SELECT DISTINCT NamXuatBan FROM Sach"; 
+    }
+    
+    public static String getBooksOfSpecificYear(String year) {
+        return String.format(
+                "SELECT COUNT(MaSach) FROM Sach WHERE NamXuatBan = '%s'"
+                , year);
+    }
 }

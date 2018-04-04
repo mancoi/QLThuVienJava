@@ -155,14 +155,7 @@
                                 </ImageView>
                             </graphic>
                             <content>
-                                <AnchorPane prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                        <GridPane alignment="CENTER" hgap="4.0" layoutX="192.0" layoutY="34.0" prefHeight="104.0" prefWidth="214.0" vgap="4.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="192.0" AnchorPane.topAnchor="34.0">
-                                            <children>
-                                            </children>
-                                        </GridPane>
-                                    </children>
-                                </AnchorPane>
+                                <fx:include source="TabStatis.fxml"/>
                             </content>
                         </Tab>
                     </tabs>

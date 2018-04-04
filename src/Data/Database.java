@@ -188,7 +188,7 @@ public class Database {
         return rs;
     }
 
-    public static ArrayList<String> getBooksOfLendNote(String query) {
+    public static ArrayList<String> getAsArrayListOfString(String query) {
         ArrayList<String> rs = new ArrayList<>();
         try {
             Database.tryToConnect();
@@ -239,7 +239,39 @@ public class Database {
         }
         return isExists;
     }
+
+    public static String getCountResultAsString(String query) {
+        String count = null;
+        try {
+            Statement statement = con.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                count = resultSet.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return count;
+        }
+        return count;
+    }
     
+    public static int getCountResultAsInt(String query) {
+        int count = -1;
+        try {
+            Statement statement = con.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return count;
+        }
+        return count;
+    }
+
     public static int populateTable(String query) {
 
         TableView tblViewResult = Utils.getTblViewResult();
