@@ -16,6 +16,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -73,7 +74,7 @@ public class TabReturnBookController implements Initializable {
         
         // Get books of this lend note
         ArrayList<String> booksOfLendNote = 
-                Database.getBooksOfLendNote(
+                Database.getAsArrayListOfString(
                         QueryHelper.getBooksOfLendNote(lendNoteInfo[0]));
         
         if (booksOfLendNote.isEmpty()) {
@@ -115,5 +116,5 @@ public class TabReturnBookController implements Initializable {
             }
         });
     }
-    
+
 }

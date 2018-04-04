@@ -130,7 +130,7 @@ public class TabTraThongTinDocGiaController implements Initializable {
                     lbLendNoteId.setText(lNoteId);
                     // Get all the book belong to selected lend note.
                     ArrayList<String> booksOfLendNote
-                            = Database.getBooksOfLendNote(
+                            = Database.getAsArrayListOfString(
                                     QueryHelper.getBooksOfLendNote(lNoteId)
                             );
                     // Add the book of selected lend note to the ListView.

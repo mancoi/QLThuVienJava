@@ -11,10 +11,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 
+
 /**
  *
  * @author Doctor
  */
+
 public class Book {
 
     private int bookId;
