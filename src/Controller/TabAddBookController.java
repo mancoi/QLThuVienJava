@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -80,9 +81,7 @@ public class TabAddBookController implements Initializable {
                 || cbPublisher.getEditor().getText().isEmpty()
                 || txtYearPublished.getText().isEmpty()) {
             Utils.showAlertOptional(
-                    "Không được để trống bất kỳ trường nào."
-                    , "Thiếu thông tin"
-                    , Alert.AlertType.INFORMATION);
+                    "Không được để trống bất kỳ trường nào.", "Thiếu thông tin", Alert.AlertType.INFORMATION);
         } else {
             Book bk = new Book();
             bk.setTitle(txtBookTitle.getText());
@@ -114,9 +113,7 @@ public class TabAddBookController implements Initializable {
     protected void butUpdateBkAction(ActionEvent event) {
         if (selectedBookId.isEmpty()) {
             Utils.showAlertOptional(
-                    "Hãy chọn một quyển sách để cập nhật thông tin."
-                    , "Chưa chọn quyển sách nào."
-                    , Alert.AlertType.INFORMATION);
+                    "Hãy chọn một quyển sách để cập nhật thông tin.", "Chưa chọn quyển sách nào.", Alert.AlertType.INFORMATION);
         } else {
             Book bk = new Book();
             bk.setBookId(Integer.parseInt(selectedBookId));
@@ -140,36 +137,37 @@ public class TabAddBookController implements Initializable {
     protected void butDelBkAaction(ActionEvent event) {
         if (selectedBookId.isEmpty()) {
             Utils.showAlertOptional(
-                    "Hãy chọn một quyển sách để xóa."
-                    , "Chưa chọn quyển sách nào."
-                    , Alert.AlertType.INFORMATION);
+                    "Hãy chọn một quyển sách để xóa.", "Chưa chọn quyển sách nào.", Alert.AlertType.INFORMATION);
         } else {
             Alert alert = new Alert(
-                    Alert.AlertType.WARNING
-                    , "Bạn có thật sự muốn xóa?\nSách đã xóa không thể khôi phục được.");
+                    Alert.AlertType.WARNING, "Bạn có thật sự muốn xóa?\nSách đã xóa không thể khôi phục được.");
             alert.setHeaderText("Cảnh báo");
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     Book bk = new Book();
                     bk.setBookId(Integer.parseInt(selectedBookId));
                     bk.deleteBook();
-                    
+
                     Database.populateTable(QueryHelper.selectAllBooks());
                 }
             });
-            
+
         }
     }
-    
+
     @FXML
     protected void butClearFieldsAction(ActionEvent event) {
+        clearFields();
+    }
+    
+    private void clearFields() {
         txtBookTitle.clear();
         txtAuthor.clear();
         cbGenre.getSelectionModel().clearSelection();
         cbPublisher.getSelectionModel().clearSelection();
         txtYearPublished.clear();
     }
-    
+
     private void addListener() {
         TableView tbvBooks = Utils.getTblViewResult();
         // Add the listener for the TableView to 
@@ -179,30 +177,38 @@ public class TabAddBookController implements Initializable {
             // If the user still not selected any item, do nothing.
             if (!tbvBooks.getSelectionModel().isEmpty()) {
 
-                String selectedBooks
-                        = tbvBooks.getSelectionModel().getSelectedItem().toString();
-                System.out.println(selectedBooks);
-                // Add each field to String arry fileds
-                List<String> fields = new ArrayList<>(Arrays.asList(
-                        selectedBooks
-                        .replaceAll("\\[|\\]", "")
-                        .replaceAll(", ", ",")
-                        .split(",")));
+                try {
+                    String selectedBooks
+                            = tbvBooks.getSelectionModel().getSelectedItem().toString();
+                    System.out.println(selectedBooks);
+                    // Add each field to String arry fileds
+                    List<String> fields = new ArrayList<>(Arrays.asList(
+                            selectedBooks
+                            .replaceAll("\\[|\\]", "")
+                            .replaceAll(", ", ",")
+                            .split(",")));
 
-                if (fields.size() == 7) {
-                    fields.set(2, fields.get(2).concat(", " + fields.get(3)));
-                    fields.remove(3);
+                    if (fields.size() == 7) {
+                        fields.set(2, fields.get(2).concat(", " + fields.get(3)));
+                        fields.remove(3);
+                    }
+
+                    txtYearPublished.setText(fields.get(5));
+                    
+                    selectedBookId = fields.get(0);
+                    lbUpdateBookId.setText(fields.get(1));
+
+                    txtBookTitle.setText(fields.get(1));
+                    txtAuthor.setText(fields.get(2));
+
+                    cbGenre.setValue(fields.get(3));
+                    cbPublisher.setValue(fields.get(4));
+                    
+                } catch (IndexOutOfBoundsException err) { 
+                    lbUpdateBookId.setText("");
+                    clearFields();
                 }
 
-                selectedBookId = fields.get(0);
-                lbUpdateBookId.setText(fields.get(1));
-
-                txtBookTitle.setText(fields.get(1));
-                txtAuthor.setText(fields.get(2));
-
-                cbGenre.setValue(fields.get(3));
-                cbPublisher.setValue(fields.get(4));
-                txtYearPublished.setText(fields.get(5));
             }
 
         });
