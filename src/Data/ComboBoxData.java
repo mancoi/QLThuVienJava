@@ -5,6 +5,7 @@
  */
 package Data;
 
+import QLThuVien.QueryHelper;
 import QLThuVien.Utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,7 +35,7 @@ public class ComboBoxData {
     
     public static ArrayList<String> populateCmbBoxTheLoai() {
 
-        final String query = "SELECT TenTheLoai FROM Sach_TheLoai";
+        final String query = QueryHelper.selectAllGenre();
         return getData(query);
         
     }
@@ -55,7 +56,7 @@ public class ComboBoxData {
     
     public static ArrayList<String> populateCmbBoxNxb() {
 
-        final String query = "SELECT TenNXB FROM NhaXuatBan";
+        final String query = QueryHelper.selectAllPublisher();
         return getData(query);
         
     }
