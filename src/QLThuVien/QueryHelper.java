@@ -25,7 +25,7 @@ public class QueryHelper {
 
     public static String searchBookById(int id) {
         return String.format(
-                "SELECT MaSach, TenSach, TacGia, TenTheLoai, TenNXB, NamXuatBan, SoLuong"
+                "SELECT MaSach, TenSach, TacGia, TenTheLoai, TenNXB, NamXuatBan"
                 + " FROM Sach, Sach_TheLoai, NhaXuatBan"
                 + " WHERE Sach.MaTheLoai = Sach_TheLoai.MaTheLoai"
                 + " AND Sach.MaNXB = NhaXuatBan.MaNXB"
@@ -40,7 +40,12 @@ public class QueryHelper {
         param[0] = citeria[0].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[0] + "%'";
         param[1] = citeria[1].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[1] + "%'";
         param[2] = citeria[2].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[2] + "%'";
-        param[3] = citeria[3].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[3] + "%'";
+        
+        if (0 == Integer.parseInt(citeria[3]) || citeria[3].isEmpty()) {
+            param[3] = IS_NOT_NULL;
+        } else {
+            param[3] = "LIKE N'%" + citeria[3] + "%'";
+        }
 
         return String.format(
                 "SELECT MaSach, TenSach, TacGia, TenTheLoai, TenNXB, NamXuatBan"
@@ -185,5 +190,17 @@ public class QueryHelper {
         return String.format(
                 "SELECT COUNT(MaSach) FROM Sach WHERE NamXuatBan = '%s'"
                 , year);
+    }
+    
+    public static String selectAllGenre() {
+        return "SELECT TenTheLoai FROM Sach_TheLoai";
+    }
+    
+    public static String selectAllPublisher() {
+        return "SELECT TenNXB FROM NhaXuatBan";
+    }
+    
+    public static String selectAllReader() {
+        return "SELECT * FROM KhachHang";
     }
 }

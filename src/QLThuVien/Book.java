@@ -30,7 +30,7 @@ public class Book {
 
     public int searchBook() {
         int rows = 0;
-        if (-1 != getBookId()) {
+        if (-1 != bookId) {
             rows = Database.populateTable(QueryHelper.searchBookById(getBookId()));
         } else {
             String[] citeria = {title, author, genre, String.valueOf(yearPublish)};
