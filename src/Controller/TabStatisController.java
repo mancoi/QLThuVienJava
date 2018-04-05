@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 
@@ -59,6 +60,9 @@ public class TabStatisController implements Initializable {
         lbStPublisherCount.setText(cPublisher);
         lbStGenreCount.setText(cGenre);
         
+        pcBookByYear.setLegendVisible(false);
+        pcBookByYear.setTitle("Số lượng sách theo các năm");
+        
         //Set up PieChart
         ArrayList<String> lstYears = 
                 Database.getAsArrayListOfString(QueryHelper.getListOfYears());
@@ -78,19 +82,23 @@ public class TabStatisController implements Initializable {
 
     @FXML
     private void butSelectPublsherAction(ActionEvent event) {
+        Database.populateTable(QueryHelper.selectAllPublisher());
     }
 
     @FXML
     private void butSelectGenreAction(ActionEvent event) {
+        Database.populateTable(QueryHelper.selectAllGenre());
     }
 
     @FXML
     private void butStRefreshAction(ActionEvent event) {
+        pcBookByYear.getData().clear();
         initialize(null, null);
     }
 
     @FXML
     private void butSelectReaderAction(ActionEvent event) {
+        Database.populateTable(QueryHelper.selectAllReader());
     }
     
 }
