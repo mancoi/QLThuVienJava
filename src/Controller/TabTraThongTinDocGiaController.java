@@ -6,14 +6,11 @@
 package Controller;
 
 import Data.Database;
-import QLThuVien.Book;
-import QLThuVien.KhachHang;
 import QLThuVien.QueryHelper;
 import QLThuVien.Utils;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,7 +18,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -123,20 +119,23 @@ public class TabTraThongTinDocGiaController implements Initializable {
                 // If the user still not selected any item, do nothing.
                 if (!lendNote.getSelectionModel().isEmpty()) {
 
-                    String selectedLNote = lendNote.getSelectionModel().getSelectedItem().toString();
-                    // Get the Id of selected lend note.
-                    String lNoteId = selectedLNote.substring(1, selectedLNote.indexOf(","));
+                    try {
+                        String selectedLNote = lendNote.getSelectionModel().getSelectedItem().toString();
+                        // Get the Id of selected lend note.
+                        String lNoteId = selectedLNote.substring(1, selectedLNote.indexOf(","));
 
-                    lbLendNoteId.setText(lNoteId);
-                    // Get all the book belong to selected lend note.
-                    ArrayList<String> booksOfLendNote
-                            = Database.getAsArrayListOfString(
-                                    QueryHelper.getBooksOfLendNote(lNoteId)
-                            );
-                    // Add the book of selected lend note to the ListView.
-                    for (String bk : booksOfLendNote) {
-                        listViewBooksOfLendNote.getItems().add(bk);
-                    }
+                        lbLendNoteId.setText(lNoteId);
+                        // Get all the book belong to selected lend note.
+                        ArrayList<String> booksOfLendNote
+                                = Database.getAsArrayListOfString(
+                                        QueryHelper.getBooksOfLendNote(lNoteId)
+                                );
+                        // Add the book of selected lend note to the ListView.
+                        for (String bk : booksOfLendNote) {
+                            listViewBooksOfLendNote.getItems().add(bk);
+                        }
+                    } catch (StringIndexOutOfBoundsException err) { }
+
                 }
 
             });
