@@ -19,9 +19,9 @@ import java.util.ArrayList;
  * @author Doctor
  */
 public class ComboBoxData {
-    
+
     private static Connection con;
-    
+
     private static Connection connect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -32,52 +32,52 @@ public class ComboBoxData {
 
         return con;
     }
-    
+
     public static ArrayList<String> populateCmbBoxTheLoai() {
 
         final String query = QueryHelper.selectAllGenre();
         return getData(query);
-        
+
     }
-    
+
     public static ArrayList<String> populateCmbBoxNamXuatBan() {
 
         final String query = "SELECT DISTINCT NamXuatBan FROM Sach ORDER BY NamXuatBan";
         return getData(query);
-        
+
     }
-    
+
     public static ArrayList<String> populateCmbBoxTacGia() {
 
         final String query = "SELECT DISTINCT TacGia FROM Sach ORDER BY TacGia";
         return getData(query);
-        
+
     }
-    
+
     public static ArrayList<String> populateCmbBoxNxb() {
 
         final String query = QueryHelper.selectAllPublisher();
         return getData(query);
-        
+
     }
-    
+
     private static ArrayList<String> getData(String query) {
-        
+
         ArrayList<String> rs = new ArrayList<>();
-        
+
         try {
             ComboBoxData.connect();
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-            
+
             while (resultSet.next()) {
                 rs.add(String.valueOf(resultSet.getObject(1)));
             }
         } catch (SQLException ex) {
             System.err.println("ComboBoxData: " + ex.getMessage());
         }
-        
+
         return rs;
     }
-    
+
 }

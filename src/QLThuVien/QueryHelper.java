@@ -5,8 +5,6 @@
  */
 package QLThuVien;
 
-import java.sql.PreparedStatement;
-
 /**
  *
  * @author Doctor
@@ -40,7 +38,7 @@ public class QueryHelper {
         param[0] = citeria[0].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[0] + "%'";
         param[1] = citeria[1].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[1] + "%'";
         param[2] = citeria[2].isEmpty() ? IS_NOT_NULL : "LIKE N'%" + citeria[2] + "%'";
-        
+
         if (0 == Integer.parseInt(citeria[3]) || citeria[3].isEmpty()) {
             param[3] = IS_NOT_NULL;
         } else {
@@ -142,65 +140,58 @@ public class QueryHelper {
                 + " ,[MaTheLoai] = %d"
                 + " ,[MaNXB] = %d"
                 + " ,[NamXuatBan] = N'%s'"
-                + " WHERE MaSach = %d"
-                , bk.getTitle()
-                , bk.getAuthor()
-                , bk.getGenreId()
-                , bk.getPublisherId()
-                , bk.getYearPublish()
-                , bk.getBookId());
+                + " WHERE MaSach = %d", bk.getTitle(), bk.getAuthor(), bk.getGenreId(), bk.getPublisherId(), bk.getYearPublish(), bk.getBookId());
     }
-    
+
     public static String deleteBook(int bookId) {
         return "DELETE FROM Sach WHERE MaSach = " + bookId;
     }
-    
+
     //---
     //Query for statistical tab
     //---
     public static String countReader() {
         return "SELECT COUNT(phoneNumber) FROM KhachHang";
     }
-    
+
     public static String countAdmin() {
         return "SELECT COUNT(username) FROM Admin";
     }
-    
+
     public static String countLendNote() {
         return "SELECT COUNT(MaPhieuMuon) FROM KhachHang_MuonSach WHERE DaTra = 'false'";
     }
-    
+
     public static String countBook() {
         return "SELECT COUNT(MaSach) FROM Sach";
     }
-    
+
     public static String countPublisher() {
         return "SELECT COUNT(MaNXB) FROM NhaXuatBan";
     }
-    
+
     public static String countGenre() {
         return "SELECT COUNT(MaTheLoai) FROM Sach_TheLoai";
     }
-    
+
     public static String getListOfYears() {
-        return "SELECT DISTINCT NamXuatBan FROM Sach"; 
+        return "SELECT DISTINCT NamXuatBan FROM Sach";
     }
-    
+
     public static String getBooksOfSpecificYear(String year) {
         return String.format(
-                "SELECT COUNT(MaSach) FROM Sach WHERE NamXuatBan = '%s'"
-                , year);
+                "SELECT COUNT(MaSach) FROM Sach WHERE NamXuatBan = '%s'", year);
     }
-    
+
     public static String selectAllGenre() {
         return "SELECT TenTheLoai FROM Sach_TheLoai";
     }
-    
+
     public static String selectAllPublisher() {
         return "SELECT TenNXB FROM NhaXuatBan";
     }
-    
+
     public static String selectAllReader() {
-        return "SELECT * FROM KhachHang";
+        return "SELECT phoneNUmber, Ho, Ten FROM KhachHang";
     }
 }

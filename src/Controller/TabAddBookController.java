@@ -15,10 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -26,7 +24,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -149,6 +146,7 @@ public class TabAddBookController implements Initializable {
                     bk.deleteBook();
 
                     Database.populateTable(QueryHelper.selectAllBooks());
+                    clearFields();
                 }
             });
 
@@ -157,15 +155,18 @@ public class TabAddBookController implements Initializable {
 
     @FXML
     protected void butClearFieldsAction(ActionEvent event) {
+        Database.populateTable(QueryHelper.selectAllBooks());
         clearFields();
     }
-    
+
     private void clearFields() {
         txtBookTitle.clear();
         txtAuthor.clear();
         cbGenre.getSelectionModel().clearSelection();
         cbPublisher.getSelectionModel().clearSelection();
         txtYearPublished.clear();
+        lbAddBookStatus.setText("Bấm để thêm sách");
+        lbUpdateBookId.setText("");
     }
 
     private void addListener() {
@@ -194,7 +195,7 @@ public class TabAddBookController implements Initializable {
                     }
 
                     txtYearPublished.setText(fields.get(5));
-                    
+
                     selectedBookId = fields.get(0);
                     lbUpdateBookId.setText(fields.get(1));
 
@@ -203,8 +204,8 @@ public class TabAddBookController implements Initializable {
 
                     cbGenre.setValue(fields.get(3));
                     cbPublisher.setValue(fields.get(4));
-                    
-                } catch (IndexOutOfBoundsException err) { 
+
+                } catch (IndexOutOfBoundsException err) {
                     lbUpdateBookId.setText("");
                     clearFields();
                 }

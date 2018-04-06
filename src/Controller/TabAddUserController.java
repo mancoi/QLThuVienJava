@@ -39,16 +39,16 @@ public class TabAddUserController implements Initializable {
     private RadioButton radAddAsGuest;
     @FXML
     Label lbStatusThemThanhVien;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
-        //Add user function
+    }
+
+    //Add user function
     @FXML
     protected void butAddUserAction(ActionEvent event) {
 
@@ -84,5 +84,5 @@ public class TabAddUserController implements Initializable {
             Database.populateTable("SELECT * FROM KhachHang");
         }
     }
-    
+
 }

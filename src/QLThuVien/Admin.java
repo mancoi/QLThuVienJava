@@ -18,8 +18,9 @@ public class Admin {
     private String password;
     private String lastName;
     private String firstName;
-    
-    public Admin() {}
+
+    public Admin() {
+    }
 
     public Admin(String usrnm, String pass) {
         username = usrnm;
@@ -38,25 +39,24 @@ public class Admin {
 
         return true;
     }
-    
-    public void addAdmin(Label lbstatus){
-        
+
+    public void addAdmin(Label lbstatus) {
+
         //Check the username first to make sure it not exists
         if (!usernameIsOK()) {
             return;
         }
-        
+
         String[] params = {username, password, lastName, firstName};
         int rows = Database.insertData(QueryHelper.addUser(params, "Admin"));
-        
+
         if (rows > 0) {
             lbstatus.setText("Thêm thành công");
-        }
-        else {
+        } else {
             lbstatus.setText("Thêm thất bại");
         }
     }
-    
+
     private boolean usernameIsOK() {
         String query = "SELECT * FROM Admin WHERE username='" + username + "'";
         if (Database.isConflictId(query)) {

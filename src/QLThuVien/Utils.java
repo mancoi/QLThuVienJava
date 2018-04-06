@@ -22,11 +22,11 @@ public class Utils {
 
     private static KhachHang currentKh;
     private static Admin currentAd;
-    
+
     private static TableView tblViewResult;
-    
-    private static final String DATABASE_CONNECTION_STRING = 
-            "jdbc:sqlserver://localhost;databaseName=QLThuVien;username=sa";
+
+    private static final String DATABASE_CONNECTION_STRING
+            = "jdbc:sqlserver://localhost;databaseName=QLThuVien;username=sa";
 
     public static void setCurrentUser(String userId, String role) {
         currentUserId = userId;
@@ -65,32 +65,30 @@ public class Utils {
         ctrl2.setDisable(true);
         ctrl3.setDisable(true);
     }
-    
+
     public static void enableControls(Control ctrl, Control ctrl1, Control ctrl2, Control ctrl3) {
         ctrl.setDisable(false);
         ctrl1.setDisable(false);
         ctrl2.setDisable(false);
         ctrl3.setDisable(false);
     }
-    
+
     public static void showAlertWarn(String mes) {
         Alert alert = new Alert(Alert.AlertType.WARNING, mes);
         alert.show();
     }
-    
+
     public static void showAlertOptional(
-            String mes
-            , String title
-            , Alert.AlertType alertType) {
+            String mes, String title, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType, mes);
         alert.setHeaderText(title);
         alert.show();
     }
-    
+
     public static boolean currentUserIsAdmin() {
         return currentUserRole.equals("Admin");
     }
-    
+
     public static void confirmExit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Bạn có chắc chắn muốn thoát?");
         alert.showAndWait().ifPresent(response -> {

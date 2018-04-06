@@ -30,6 +30,11 @@ import javafx.stage.WindowEvent;
  */
 public class QuanLyChungController implements Initializable {
 
+    @FXML
+    private MenuItem menuButLogout;
+    @FXML
+    private Tab tabThongTinDocGia;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -105,4 +110,13 @@ public class QuanLyChungController implements Initializable {
     //TableView
     @FXML
     private TableView tblViewResult;
+
+    @FXML
+    private void menuAboutAction(ActionEvent event) {
+        String mes
+                = "Đề tài: Quản lý thư viện\n"
+                + "1451010099 - Trần Thành Long\n1451010104 - Phạm Cao Mẫn";
+        String title = "Bài tập lớn môn Lập trình Java";
+        Utils.showAlertOptional(mes, title, Alert.AlertType.INFORMATION);
+    }
 }

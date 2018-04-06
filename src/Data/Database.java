@@ -255,7 +255,7 @@ public class Database {
         }
         return count;
     }
-    
+
     public static int getCountResultAsInt(String query) {
         int count = -1;
         try {

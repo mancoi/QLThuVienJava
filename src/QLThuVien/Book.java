@@ -9,14 +9,11 @@ import Data.Database;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-
 
 /**
  *
  * @author Doctor
  */
-
 public class Book {
 
     private int bookId;
@@ -84,27 +81,24 @@ public class Book {
         int row = Database.insertData(QueryHelper.insertBook(params));
         if (row > 0) {
             lbStatus.setText("Thêm sách " + title + " thành công");
-        } else
+        } else {
             lbStatus.setText("Có lỗi xảy ra khi thêm sách.");
+        }
     }
 
     public void updateBook() {
         int row = Database.insertData(QueryHelper.updateBook(this));
         if (row != 0) {
             Utils.showAlertOptional(
-                    "Sửa thành công sách có id: " + bookId
-                    , "Sửa thành công"
-                    , Alert.AlertType.INFORMATION);
+                    "Sửa thành công sách có id: " + bookId, "Sửa thành công", Alert.AlertType.INFORMATION);
         }
     }
-    
-    public void deleteBook(){
+
+    public void deleteBook() {
         int row = Database.insertData(QueryHelper.deleteBook(bookId));
         if (row != 0) {
             Utils.showAlertOptional(
-                    "Xóa thành công sách có id: " + bookId
-                    , "Xóa thành công"
-                    , Alert.AlertType.INFORMATION);
+                    "Xóa thành công sách có id: " + bookId, "Xóa thành công", Alert.AlertType.INFORMATION);
         }
     }
 

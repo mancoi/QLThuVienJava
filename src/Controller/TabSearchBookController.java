@@ -39,7 +39,7 @@ public class TabSearchBookController implements Initializable {
     private ComboBox cmbBoxBookPublishYearToSearch;
     @FXML
     private Label lbSearchStatus;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -49,7 +49,7 @@ public class TabSearchBookController implements Initializable {
         cmbBoxBookAuthorToSearch.getItems().addAll(ComboBoxData.populateCmbBoxTacGia());
         cmbBoxBookGenreToSearch.getItems().addAll(ComboBoxData.populateCmbBoxTheLoai());
         cmbBoxBookPublishYearToSearch.getItems().addAll(ComboBoxData.populateCmbBoxNamXuatBan());
-        
+
         //When user find with BookId, they shouldn't add more info
         txtBookIDToSearch.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -61,9 +61,9 @@ public class TabSearchBookController implements Initializable {
                 }
             }
         });
-    }    
-    
-      //Perform search book
+    }
+
+    //Perform search book
     @FXML
     protected void butSearchBookAction(ActionEvent event) {
 
@@ -95,7 +95,7 @@ public class TabSearchBookController implements Initializable {
             System.out.print("QuanLyChungController: " + ex.getMessage());
         }
     }
-    
+
     @FXML
     protected void clearAllSearchField(ActionEvent event) {
         txtBookIDToSearch.setText("");
@@ -105,5 +105,5 @@ public class TabSearchBookController implements Initializable {
         cmbBoxBookPublishYearToSearch.setValue(null);
         lbSearchStatus.setText(null);
     }
-    
+
 }
