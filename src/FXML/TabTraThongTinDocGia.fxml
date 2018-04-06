@@ -10,57 +10,48 @@
 <?import javafx.scene.layout.*?>
 
 <HBox alignment="CENTER" prefHeight="250.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TabTraThongTinDocGiaController">
-   <children>
-      <GridPane alignment="CENTER" hgap="8" prefHeight="250" prefWidth="300.0" vgap="16.0">
-          <stylesheets>
-              <URL value="@/css/styleSheet.css" />
-          </stylesheets>                 
-          <children>
-              <Label text="Số điện thoại:" />
-              <TextField fx:id="txtPhoneNum" promptText="Nhập mã người dùng.." GridPane.columnIndex="1" />
-              <HBox alignment="CENTER" spacing="8.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                  <children>
-                      <Button fx:id="butGetUserInfo" onAction="#butGetUserInfoAction" text="Tra thông tin" />
-                      <Button fx:id="butGetOldLendNote" onAction="#butGetOldLendNoteAction" text="Tra sách đã mượn" />
-                  </children>
-              </HBox>
-              <Label alignment="CENTER" styleClass="note" text="Để trống số điện thoại để xem người dùng hiện tại." textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-          </children>
-         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
-                                                 
-      </GridPane>
-      <VBox fx:id="vBoxBksOfLNoteContainer" 
-            managed="false" 
-            alignment="CENTER" prefHeight="150.0" prefWidth="250.0" spacing="4.0">
-         <children>
-            <HBox prefHeight="22.0" prefWidth="250.0" spacing="4.0">
-               <children>
-                  <Label
-                      styleClass="labelHeader" 
-                      text="Sách đã mượn của phiếu số" />
-                  <Label 
-                      styleClass="note"
-                      fx:id="lbLendNoteId"
-                      text="-/-" 
-                  />
-               </children>
-            </HBox>
-            <ListView fx:id="listViewBooksOfLendNote" 
+    <children>
+        <GridPane alignment="CENTER" hgap="8" prefHeight="250" prefWidth="300.0" vgap="16.0">
+            <stylesheets>
+                <URL value="@/css/styleSheet.css" />
+            </stylesheets>                 
+            <children>
+                <Label text="Số điện thoại:" />
+                <TextField fx:id="txtPhoneNum" promptText="Nhập mã người dùng.." GridPane.columnIndex="1" />
+                <HBox alignment="CENTER" spacing="8.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                    <children>
+                        <Button fx:id="butGetUserInfo" onAction="#butGetUserInfoAction" text="Tra thông tin" />
+                        <Button fx:id="butGetOldLendNote" onAction="#butGetOldLendNoteAction" text="Tra sách đã mượn" />
+                    </children>
+                </HBox>
+                <Label alignment="CENTER" styleClass="note" text="Để trống số điện thoại để xem người dùng hiện tại." textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            </children>
+                                
+        </GridPane>
+        <VBox fx:id="vBoxBksOfLNoteContainer" 
+              managed="false" 
+              alignment="CENTER" prefHeight="150.0" prefWidth="250.0" spacing="4.0">
+            <children>
+                <HBox prefHeight="22.0" prefWidth="250.0" spacing="4.0">
+                    <children>
+                        <Label
+                            styleClass="labelHeader" 
+                            text="Sách đã mượn của phiếu số" />
+                        <Label 
+                            styleClass="note"
+                            fx:id="lbLendNoteId"
+                            text="-/-" 
+                        />
+                    </children>
+                </HBox>
+                <ListView fx:id="listViewBooksOfLendNote" 
                       
-                      prefHeight="137.0" prefWidth="250.0">
-               <padding>
-                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-               </padding>
-            </ListView>
-         </children>
-      </VBox>
-   </children>
+                          prefHeight="137.0" prefWidth="250.0">
+                    <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                    </padding>
+                </ListView>
+            </children>
+        </VBox>
+    </children>
 </HBox>

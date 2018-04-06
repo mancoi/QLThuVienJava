@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.scene.image.*?>
@@ -8,96 +9,56 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-        <GridPane alignment="CENTER" hgap="8.0"  vgap="8.0"
-                  prefHeight="250"  prefWidth="800"
-                  xmlns:fx="http://javafx.com/fxml/1"
-                  fx:controller="Controller.TabSearchBookController"
-        >
-            <stylesheets>
-                <URL value="@/css/styleSheet.css"/>
-            </stylesheets>     
-            <children>
-                <Label text="Mã sách:" GridPane.rowIndex="1" />
-                <TextField fx:id="txtBookIDToSearch"
-                           GridPane.columnIndex="1" 
-                           GridPane.rowIndex="1" 
-                />
-                <Label text="Tựa sách:" 
-                       GridPane.rowIndex="2" />
-                <TextField fx:id="txtBookTitleToSearch"
-                           GridPane.columnIndex="1" 
-                           GridPane.rowIndex="2"
-                />
+<GridPane alignment="CENTER" hgap="8.0" prefHeight="250" prefWidth="800" vgap="8.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TabSearchBookController">
+    <stylesheets>
+        <URL value="@/css/styleSheet.css" />
+    </stylesheets>     
+    <children>
+        <Label text="Mã sách:" GridPane.rowIndex="1" />
+        <TextField fx:id="txtBookIDToSearch" promptText="Tìm theo mã sách.." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="Tựa sách:" GridPane.rowIndex="2" />
+        <TextField fx:id="txtBookTitleToSearch" promptText="Tìm theo tựa sách.." GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                 
-                <Separator orientation="VERTICAL"
-                           prefWidth="0.0" 
-                           GridPane.columnIndex="2" 
-                           GridPane.rowSpan="4" />
+        <Separator orientation="VERTICAL" prefWidth="0.0" GridPane.columnIndex="2" GridPane.rowSpan="4" />
                                                 
-                <Label styleClass="labelHeader" 
-                       text="Tìm kiếm nâng cao" 
-                       GridPane.columnIndex="3" 
-                       GridPane.columnSpan="2" />
+        <Label styleClass="labelHeader" text="Tìm kiếm nâng cao" GridPane.columnIndex="3" GridPane.columnSpan="2" />
                                     
-                <Label text="Tác giả:" 
-                       GridPane.columnIndex="3"
-                       GridPane.rowIndex="1" />
+        <Label text="Tác giả:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                                 
-                <Label text="Thể loại:" 
-                       GridPane.columnIndex="3"
-                       GridPane.rowIndex="2" />
+        <Label text="Thể loại:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                                                 
-                <Label text="Năm xuất bản:"
-                       GridPane.columnIndex="3"
-                       GridPane.rowIndex="3" />
+        <Label text="Năm xuất bản:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                                                 
-                <ComboBox fx:id="cmbBoxBookAuthorToSearch"
-                          editable="true"
-                          maxWidth="150"
-                          GridPane.columnIndex="4"
-                          GridPane.rowIndex="1"
-                                                            
-                />
+        <ComboBox fx:id="cmbBoxBookAuthorToSearch" editable="true" maxWidth="150" promptText="Tìm theo tác giả.." GridPane.columnIndex="4" GridPane.rowIndex="1" />
                                                 
-                <ComboBox fx:id="cmbBoxBookGenreToSearch"
-                          editable="true" 
-                          maxWidth="150" 
-                          GridPane.columnIndex="4"
-                          GridPane.rowIndex="2" 
-                />
+        <ComboBox fx:id="cmbBoxBookGenreToSearch" editable="true" maxWidth="150" promptText="Tìm theo thể loại.." GridPane.columnIndex="4" GridPane.rowIndex="2" />
                                                 
-                <ComboBox fx:id="cmbBoxBookPublishYearToSearch"
-                          editable="true"
-                          maxWidth="150" 
-                          GridPane.columnIndex="4"
-                          GridPane.rowIndex="3" 
-                />
-                <Label fx:id="lbSearchStatus"
-                       text="Tìm tất cả sách bằng cách để trống tất cả các trường" 
-                       GridPane.columnIndex="0"
-                       GridPane.rowIndex="5" 
-                       GridPane.columnSpan="5"  
-                       GridPane.halignment="CENTER"   
-                />
-                <HBox alignment="CENTER" spacing="8.0" 
-                      GridPane.columnIndex="0"
-                      GridPane.rowIndex="6" 
-                      GridPane.columnSpan="5" >
-                    <children>
+        <ComboBox fx:id="cmbBoxBookPublishYearToSearch" editable="true" maxWidth="150" promptText="Tìm theo năm.." GridPane.columnIndex="4" GridPane.rowIndex="3" />
+        <Label fx:id="lbSearchStatus" text="Tìm tất cả sách bằng cách để trống tất cả các trường" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+        <HBox alignment="CENTER" spacing="8.0" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowIndex="6">
+            <children>
                                                         
-                        <Button fx:id="butSearchBook" 
-                                onAction="#butSearchBookAction" 
-                                text="Tìm" 
-                                minWidth="52" 
-                        />
-                        <Button
-                            text="Xóa hết" 
-                            onAction="#clearAllSearchField" 
-                        />
-                    </children>
+                <Button fx:id="butSearchBook" minWidth="52" onAction="#butSearchBookAction" text="Tìm">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@../Image/ic_search.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button onAction="#clearAllSearchField" text="Xóa hết">
+                    <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Image/ic_clear_all.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
                                                     
-                </HBox>
-            </children>             
-        </GridPane>
-  
+        </HBox>
+    </children>
+   
+</GridPane>

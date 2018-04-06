@@ -7,47 +7,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" hgap="8" vgap="8"
-          prefHeight="250" prefWidth="800"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TabReturnBookController">
+<GridPane alignment="CENTER" hgap="8" prefHeight="250" prefWidth="800" vgap="8" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controller.TabReturnBookController">
     <stylesheets>
-        <URL value="@/css/styleSheet.css"/>
+        <URL value="@/css/styleSheet.css" />
     </stylesheets>
     <children>
                                                 
-        <Label styleClass="labelHeader" 
-               text="Thông tin người trả"
-               GridPane.columnIndex="0"
-               GridPane.rowIndex="0" 
-               GridPane.columnSpan="2" 
-        />
+        <Label styleClass="labelHeader" text="Thông tin người trả" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
                                                 
-        <Label text="Số điện thoại:"
-               GridPane.columnIndex="0"
-               GridPane.rowIndex="1" 
-        />
+        <Label text="Số điện thoại:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                                 
-        <TextField fx:id="txtPersonReturnId" 
-                   GridPane.columnIndex="1"
-                   GridPane.rowIndex="1"
-        />
+        <TextField fx:id="txtPersonReturnId" promptText="Nhập số điện thoại.." GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 
-        <Button fx:id="butConfirmReturn"
-                onAction="#butConfirmReturnAction" 
-                text="Xác nhận trả sách" 
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="3" 
-                GridPane.columnSpan="2" 
-                GridPane.halignment="RIGHT" 
-        /> 
+        <Button fx:id="butConfirmReturn" onAction="#butConfirmReturnAction" text="Xác nhận trả sách" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" /> 
         
-        <Label fx:id="lbReturnBkStatus"
-               styleClass="labelHeader"
-               GridPane.columnIndex="0"
-               GridPane.columnSpan="2" 
-               GridPane.rowIndex="5" 
-               GridPane.halignment="CENTER" 
-        />
+        <Label fx:id="lbReturnBkStatus" styleClass="labelHeader" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                                                 
     </children>
+
 </GridPane>

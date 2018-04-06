@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
@@ -7,161 +8,91 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<GridPane  
-    alignment="CENTER" hgap="8" vgap="8"
-    prefHeight="250" prefWidth="800"  
-    xmlns:fx="http://javafx.com/fxml/1" 
-    fx:controller="Controller.TabLendBookController">
+<GridPane alignment="CENTER" hgap="8" prefHeight="250" prefWidth="800" vgap="8" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TabLendBookController">
     <stylesheets>
-        <URL value="@/css/styleSheet.css"/>
+        <URL value="@/css/styleSheet.css" />
     </stylesheets>
     <children>
-        <Label styleClass="labelHeader" 
-               text="1. Kiểm tra thông tin người mượn"
-               GridPane.columnIndex="0"
-               GridPane.rowIndex="0" 
-               GridPane.columnSpan="2" />
+        <Label styleClass="labelHeader" text="1. Kiểm tra thông tin người mượn" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
                                                 
-        <Label text="Số điện thoại:" 
-               GridPane.columnIndex="0"
-               GridPane.rowIndex="1"/> 
+        <Label text="Số điện thoại:" GridPane.columnIndex="0" GridPane.rowIndex="1" /> 
                                                 
-        <TextField fx:id="txtBorrowerId"
-                   GridPane.columnIndex="1"
-                   GridPane.rowIndex="1" />
+        <TextField fx:id="txtBorrowerId" promptText="Nhập số điện thoại.." GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 
-        <Button fx:id="butCheckBorrower"
-                onAction="#butCheckBorrowerAction" 
-                text="Kiểm tra" 
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="2"
-                GridPane.columnSpan="2"
-                GridPane.halignment="RIGHT"                                    
-        />
+        <Button fx:id="butCheckBorrower" onAction="#butCheckBorrowerAction" text="Kiểm tra" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../Image/ic_verified_user.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
         
-        <Label fx:id="lbCheckBrwStatus"
-               GridPane.columnIndex="1"
-               GridPane.rowIndex="3"
-               GridPane.halignment="RIGHT" 
-        /> 
+        <Label fx:id="lbCheckBrwStatus" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" /> 
                                                 
-        <Separator orientation="VERTICAL" 
-                   GridPane.columnIndex="2" 
-                   GridPane.rowSpan="6" />
+        <Separator orientation="VERTICAL" GridPane.columnIndex="2" GridPane.rowSpan="6" />
                                                 
-        <Label styleClass="labelHeader" 
-               text="2. Thêm sách cần mượn"
-               GridPane.columnIndex="3"
-               GridPane.rowIndex="0" 
-               GridPane.columnSpan="3"
-        />
+        <Label styleClass="labelHeader" text="2. Thêm sách cần mượn" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="0" />
                                                 
-        <ListView 
-            fx:id="lstVBorrowBookList"
-            minHeight="120"
-            maxHeight="120"  
-            disable="true" 
-            GridPane.columnIndex="3"
-            GridPane.rowIndex="1"
-            GridPane.rowSpan="4" 
-            GridPane.columnSpan="3"
-            GridPane.halignment="CENTER" /> 
+        <ListView fx:id="lstVBorrowBookList" disable="true" maxHeight="120" minHeight="120" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4" /> 
                                                 
-        <HBox alignment="CENTER"
-              spacing="4"  
-              GridPane.columnIndex="3"
-              GridPane.rowIndex="5" 
-              GridPane.columnSpan="3" >
+        <HBox alignment="CENTER" spacing="4" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="5">
             <children>
-                <Button fx:id="butAddBorrowBook"
-                        onAction="#butAddBorrowBookAction" 
-                        disable="true" 
-                        text="Thêm"
-                /> 
-                <Button fx:id="butDelBorrowBook"
-                        onAction="#butDelBorrowBook" 
-                        disable="true" 
-                        text="Xóa"
-                /> 
-                <Button fx:id="butConfirmBorrowBook"
-                        onAction="#butConfirmBorrowBook" 
-                        disable="true" 
-                        text="Xác nhận"
-                /> 
+                <Button fx:id="butAddBorrowBook" disable="true" onAction="#butAddBorrowBookAction" text="Thêm">
+                    <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Image/ic_add.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button> 
+                <Button fx:id="butDelBorrowBook" disable="true" onAction="#butDelBorrowBook" text="Xóa">
+                    <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Image/ic_remove.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button> 
+                <Button fx:id="butConfirmBorrowBook" disable="true" onAction="#butConfirmBorrowBook" text="Xác nhận">
+                    <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Image/ic_send.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button> 
             </children>
         </HBox>
                                                 
-        <Separator orientation="VERTICAL" 
-                   GridPane.columnIndex="6" 
-                   GridPane.rowSpan="6" />
+        <Separator orientation="VERTICAL" GridPane.columnIndex="6" GridPane.rowSpan="6" />
                                                 
-        <Label styleClass="labelHeader" 
-               text="3. Xác nhận"
-               GridPane.columnIndex="7"
-               GridPane.rowIndex="0" 
-               GridPane.columnSpan="2"
-        />
+        <Label styleClass="labelHeader" text="3. Xác nhận" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="0" />
                                                 
-        <Label text="Người mượn: " 
-               GridPane.columnIndex="7"
-               GridPane.rowIndex="1" 
-        />
+        <Label text="Người mượn: " GridPane.columnIndex="7" GridPane.rowIndex="1" />
                                                 
-        <Label
-            fx:id="lbBorrwerId" 
-            text="0123456789" 
-            GridPane.columnIndex="8"
-            GridPane.rowIndex="1" 
-        />
+        <Label fx:id="lbBorrwerId" GridPane.columnIndex="8" GridPane.rowIndex="1" />
                                                 
-        <Label text="Số sách mượn: " 
-               GridPane.columnIndex="7"
-               GridPane.rowIndex="2" 
-        />
+        <Label text="Số sách mượn: " GridPane.columnIndex="7" GridPane.rowIndex="2" />
                                                 
-        <Label 
-            fx:id="lbBorrowQuantity"
-            text="3" 
-            GridPane.columnIndex="8"
-            GridPane.rowIndex="2" 
-        />
+        <Label fx:id="lbBorrowQuantity" GridPane.columnIndex="8" GridPane.rowIndex="2" />
                                                 
-        <HBox fx:id="hBoxReturnDay"
-              GridPane.columnIndex="7"
-              GridPane.rowIndex="3"
-              GridPane.columnSpan="2"
-              spacing="4"
-              alignment="CENTER" 
-        >
-            <children>
-                                                        
-                <Label text="Ngày phải trả:"  
-                />
+        <Label fx:id="lbLendBookStatus" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                                                 
-                <Label fx:id="lbReturnDay"
-                       text="20/02/2018"  
-                />
-            </children>
-        </HBox>
-                                                
-        <Label fx:id="lbLendBookStatus"
-               text="Cho mượn hoàn tất" 
-               GridPane.halignment="CENTER" 
-               GridPane.columnIndex="7"
-               GridPane.rowIndex="4"
-               GridPane.columnSpan="2"
-        />
-                                                
-        <Button fx:id="butLendBook"
-                onAction="#butLendBookAction" 
-                text="Xác nhận &amp; Cho mượn"
-                disable="true" 
-                GridPane.columnIndex="7"
-                GridPane.rowIndex="5"
-                GridPane.columnSpan="2"
-                GridPane.halignment="CENTER" 
-        />     
+        <Button fx:id="butLendBook" disable="true" onAction="#butLendBookAction" text="Xác nhận &amp; Cho mượn" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../Image/ic_commit_lend.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>     
                                                 
     </children>
+  
 </GridPane>
